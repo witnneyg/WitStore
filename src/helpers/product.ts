@@ -1,5 +1,9 @@
 import { Product } from "@/lib/utils";
 
+export interface ProductWithTotalPrice extends Product {
+  totalPrice: number;
+}
+
 export function computeProductTotalPrice(product: Product) {
   if (product.discountPercentage == 0) {
     return {
