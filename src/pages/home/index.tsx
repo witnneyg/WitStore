@@ -1,4 +1,5 @@
-import img from "../assets/banner-desconto.png";
+import img from "../../assets/banner-desconto.png";
+import { Categories } from "./components/categories";
 
 export function HomePage() {
   return (
@@ -8,6 +9,9 @@ export function HomePage() {
         alt="Até 55% de desconto esse mês"
         className="h-auto w-full"
       />
+      <div className="mt-8">
+        <Categories />
+      </div>
     </div>
   );
 }
