@@ -126,7 +126,7 @@ export function HomePage() {
   ]);
 
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col gap-8 py-8">
       <PromoBanner src={bannerDesconto} alt="Até 55% de desconto esse mês" />
 
       <div className="mt-8 px-5">
