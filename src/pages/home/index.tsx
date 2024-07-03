@@ -6,6 +6,7 @@ import { useState } from "react";
 import bannerDesconto from "../../assets/banner-desconto.png";
 import bannerMouse from "../../assets/banner-mouses.png";
 import mouseImg from "../../assets/mouse.png";
+import bannerFones from "../../assets/banner-fones.png";
 
 import { SectionTitle } from "./components/section-title";
 import { PromoBanner } from "./components/promo-banner";
@@ -125,22 +126,29 @@ export function HomePage() {
   ]);
 
   return (
-    <div>
+    <div className="flex flex-col gap-8">
       <PromoBanner src={bannerDesconto} alt="Até 55% de desconto esse mês" />
 
       <div className="mt-8 px-5">
         <Categories />
       </div>
 
-      <div className="mt-8">
+      <div>
         <SectionTitle>Ofertas</SectionTitle>
         <ProductList products={products} />
       </div>
 
       <PromoBanner src={bannerMouse} alt="Até 55% de desconto em mouses" />
 
-      <div className="mt-8">
+      <div>
         <SectionTitle>Teclados</SectionTitle>
+        <ProductList products={products} />
+      </div>
+
+      <PromoBanner src={bannerFones} alt="Até 20% de desconto em fones" />
+
+      <div>
+        <SectionTitle>Fones</SectionTitle>
         <ProductList products={products} />
       </div>
     </div>
