@@ -7,6 +7,9 @@ import bannerDesconto from "../../assets/banner-desconto.png";
 import bannerMouse from "../../assets/banner-mouses.png";
 import mouseImg from "../../assets/mouse.png";
 
+import { SectionTitle } from "./components/section-title";
+import { PromoBanner } from "./components/promo-banner";
+
 export function HomePage() {
   const [products] = useState<Product[]>([
     {
@@ -123,26 +126,23 @@ export function HomePage() {
 
   return (
     <div>
-      <img
-        src={bannerDesconto}
-        alt="Até 55% de desconto esse mês"
-        className="h-auto w-full px-5"
-      />
+      <PromoBanner src={bannerDesconto} alt="Até 55% de desconto esse mês" />
 
       <div className="mt-8 px-5">
         <Categories />
       </div>
 
       <div className="mt-8">
-        <p className="font-bold upparcase pl-5 mb-3 ">Ofertas</p>
+        <SectionTitle>Ofertas</SectionTitle>
         <ProductList products={products} />
       </div>
 
-      <img
-        src={bannerMouse}
-        alt="Até 55% de desconto em mouses!"
-        className="h-auto w-full px-5"
-      />
+      <PromoBanner src={bannerMouse} alt="Até 55% de desconto em mouses" />
+
+      <div className="mt-8">
+        <SectionTitle>Teclados</SectionTitle>
+        <ProductList products={products} />
+      </div>
     </div>
   );
 }
