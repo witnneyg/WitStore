@@ -4,9 +4,11 @@ import { Footer } from "./components/ui/footer";
 
 function App() {
   return (
-    <div className="">
+    <div className="flex h-screen flex-col">
       <Header />
-      <Outlet />
+      <div className="flex-1 ">
+        <Outlet />
+      </div>
       <Footer />
     </div>
   );
