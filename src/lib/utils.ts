@@ -5,7 +5,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export interface CategoryItem {
+export interface CategoryItemType {
   id: string;
   name: string;
   slug: string;
