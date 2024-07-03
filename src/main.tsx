@@ -1,9 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
-import { Catalog } from "./components/ui/catalog.tsx";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { HomePage } from "./pages/home/index.tsx";
+import { CatalogPage } from "./pages/catalog/index.tsx";
 
 import "@/styles/globals.css";
 
@@ -18,7 +18,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/catalog",
-        element: <Catalog />,
+        element: <CatalogPage />,
       },
     ],
   },
