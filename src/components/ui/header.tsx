@@ -7,7 +7,13 @@ import {
 } from "lucide-react";
 import { Button } from "./button";
 import { Card } from "./card";
-import { Sheet, SheetContent, SheetHeader, SheetTrigger } from "./sheet";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetHeader,
+  SheetTrigger,
+} from "./sheet";
 import { PercentIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -44,12 +50,17 @@ export function Header() {
               Ofertas
             </Button>
 
-            <Link to={`/catalog`}>
-              <Button variant="outline" className="w-full justify-start gap-2">
-                <ListOrderedIcon size={16} />
-                Catálogo
-              </Button>
-            </Link>
+            <SheetClose asChild>
+              <Link to={`/catalog`}>
+                <Button
+                  variant="outline"
+                  className="w-full justify-start gap-2"
+                >
+                  <ListOrderedIcon size={16} />
+                  Catálogo
+                </Button>
+              </Link>
+            </SheetClose>
           </div>
         </SheetContent>
       </Sheet>
