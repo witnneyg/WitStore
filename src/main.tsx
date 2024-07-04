@@ -4,9 +4,10 @@ import App from "./App.tsx";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { HomePage } from "./pages/home/index.tsx";
 import { CatalogPage } from "./pages/catalog/index.tsx";
+import { CategoryProducts } from "./pages/category-products/index.tsx";
+import { ProductDetailsPage } from "./pages/product/index.tsx";
 
 import "@/styles/globals.css";
-import { CategoryProducts } from "./pages/category-products/index.tsx";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
       {
         path: "/category/:slug",
         element: <CategoryProducts />,
+      },
+      {
+        path: "/products/:slug",
+        element: <ProductDetailsPage />,
       },
     ],
   },

@@ -1,12 +1,11 @@
 import { Badge } from "@/components/ui/badge";
 import { ProductItem } from "@/components/ui/product-item";
 import { computeProductTotalPrice } from "@/helpers/product";
-import { ShapesIcon } from "lucide-react";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import mouseImg from "../../assets/mouse.png";
 import { Product } from "@/lib/utils";
 import { CATEGORY_ICON } from "@/constants/category-icon";
+import mouseImg from "../../assets/mouse.png";
 
 export function CategoryProducts() {
   const params = useParams();
