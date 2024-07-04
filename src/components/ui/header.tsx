@@ -9,6 +9,7 @@ import { Button } from "./button";
 import { Card } from "./card";
 import { Sheet, SheetContent, SheetHeader, SheetTrigger } from "./sheet";
 import { PercentIcon } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export function Header() {
   return (
@@ -31,20 +32,24 @@ export function Header() {
               Fazer Login
             </Button>
 
-            <Button variant="outline" className="w-full justify-start gap-2">
-              <HomeIcon size={16} />
-              Início
-            </Button>
+            <Link to="/">
+              <Button variant="outline" className="w-full justify-start gap-2">
+                <HomeIcon size={16} />
+                Início
+              </Button>
+            </Link>
 
             <Button variant="outline" className="w-full justify-start gap-2">
               <PercentIcon size={16} />
               Ofertas
             </Button>
 
-            <Button variant="outline" className="w-full justify-start gap-2">
-              <ListOrderedIcon size={16} />
-              Catálogo
-            </Button>
+            <Link to={`/catalog`}>
+              <Button variant="outline" className="w-full justify-start gap-2">
+                <ListOrderedIcon size={16} />
+                Catálogo
+              </Button>
+            </Link>
           </div>
         </SheetContent>
       </Sheet>

@@ -6,6 +6,7 @@ import { HomePage } from "./pages/home/index.tsx";
 import { CatalogPage } from "./pages/catalog/index.tsx";
 
 import "@/styles/globals.css";
+import { CategoryProducts } from "./pages/category-products/index.tsx";
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
       {
         path: "/catalog",
         element: <CatalogPage />,
+      },
+      {
+        path: "/category/:slug",
+        element: <CategoryProducts />,
       },
     ],
   },
