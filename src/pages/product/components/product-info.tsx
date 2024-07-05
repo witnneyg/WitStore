@@ -1,11 +1,6 @@
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  ArrowDownIcon,
-  ArrowLeftIcon,
-  ArrowRightIcon,
-  TruckIcon,
-} from "lucide-react";
+import { DiscountBadge } from "@/components/ui/discount-badge";
+import { ArrowLeftIcon, ArrowRightIcon, TruckIcon } from "lucide-react";
 import { useState } from "react";
 
 interface ProductInfoProps {
@@ -37,10 +32,7 @@ export function ProductInfo({ product }: ProductInfoProps) {
           R$ {product.totalPrice.toFixed(2)}
         </h1>
         {product.discountPercentage > 0 && (
-          <Badge className="px-2 py-[2px]">
-            <ArrowDownIcon size={14} />
-            {product.discountPercentage}%
-          </Badge>
+          <DiscountBadge>{product.discountPercentage}</DiscountBadge>
         )}
       </div>
 
