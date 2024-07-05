@@ -29,7 +29,7 @@ export function ProductInfo({ product }: ProductInfoProps) {
     setQuantity((prev) => prev + 1);
   }
   return (
-    <div className="flex flex-col px-5">
+    <div className="flex flex-col px-5 mt-5">
       <h2 className="text-lg">{product.name}</h2>
 
       <div className="flex items-center gap-2">
