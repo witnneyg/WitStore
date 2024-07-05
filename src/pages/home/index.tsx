@@ -8,7 +8,7 @@ import bannerMouse from "../../assets/banner-mouses.png";
 import mouseImg from "../../assets/mouse.png";
 import bannerFones from "../../assets/banner-fones.png";
 
-import { SectionTitle } from "./components/section-title";
+import { SectionTitle } from "../../components/ui/section-title";
 import { PromoBanner } from "./components/promo-banner";
 
 export function HomePage() {

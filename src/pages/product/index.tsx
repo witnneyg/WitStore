@@ -6,6 +6,7 @@ import { ProductImages } from "./components/product-images";
 import { ProductInfo } from "./components/product-info";
 import { computeProductTotalPrice } from "@/helpers/product";
 import { ProductList } from "../../components/ui/product-list";
+import { SectionTitle } from "@/components/ui/section-title";
 
 export function ProductDetailsPage() {
   const [product] = useState<Product[]>([
@@ -147,6 +148,7 @@ export function ProductDetailsPage() {
         <ProductInfo product={computeProductTotalPrice(item)} />
       ))}
       {/* include categories include product true , incluir productos semelhantes*/}
+      <SectionTitle>Products Recomendados</SectionTitle>
       <ProductList products={productCategories} />
     </div>
   );
