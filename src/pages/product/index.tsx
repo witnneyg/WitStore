@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import mouseImg from "../../assets/mouse.png";
 import { useState } from "react";
 import { Product } from "@/lib/utils";
+import { ProductImages } from "./components/product-images";
 
 export function ProductDetailsPage() {
   const [product] = useState<Product[]>([
@@ -22,9 +23,9 @@ export function ProductDetailsPage() {
   if (!product) return null;
 
   return (
-    <div className="">
-      {product.map((item) => (
-        <div className="">{item.name}</div>
+    <div>
+      {product.map(({ imageUrls, name, id }) => (
+        <ProductImages imageUrls={imageUrls} name={name} key={id} />
       ))}
     </div>
   );
