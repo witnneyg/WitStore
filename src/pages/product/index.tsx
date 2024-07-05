@@ -3,6 +3,8 @@ import mouseImg from "../../assets/mouse.png";
 import { useState } from "react";
 import { Product } from "@/lib/utils";
 import { ProductImages } from "./components/product-images";
+import { ProductInfo } from "./components/product-info";
+import { computeProductTotalPrice } from "@/helpers/product";
 
 export function ProductDetailsPage() {
   const [product] = useState<Product[]>([
@@ -23,9 +25,12 @@ export function ProductDetailsPage() {
   if (!product) return null;
 
   return (
-    <div>
+    <div className="fex flex-col gap-8">
       {product.map(({ imageUrls, name, id }) => (
         <ProductImages imageUrls={imageUrls} name={name} key={id} />
+      ))}
+      {product.map((item) => (
+        <ProductInfo product={computeProductTotalPrice(item)} />
       ))}
     </div>
   );
