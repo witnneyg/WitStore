@@ -16,6 +16,7 @@ import {
 } from "./sheet";
 import { PercentIcon } from "lucide-react";
 import { Link } from "react-router-dom";
+import { Cart } from "./cart";
 
 export function Header() {
   return (
@@ -71,9 +72,17 @@ export function Header() {
         </h1>
       </Link>
 
-      <Button size="icon" variant="outline">
-        <ShoppingCartIcon />
-      </Button>
+      <Sheet>
+        <SheetTrigger asChild>
+          <Button size="icon" variant="outline">
+            <ShoppingCartIcon />
+          </Button>
+        </SheetTrigger>
+
+        <SheetContent>
+          <Cart />
+        </SheetContent>
+      </Sheet>
     </Card>
   );
 }

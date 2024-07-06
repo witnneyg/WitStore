@@ -1,20 +1,18 @@
 import { Button } from "@/components/ui/button";
 import { DiscountBadge } from "@/components/ui/discount-badge";
+import { ProductWithTotalPrice } from "@/helpers/product";
+import { CartContext } from "@/providers/cart";
 import { ArrowLeftIcon, ArrowRightIcon, TruckIcon } from "lucide-react";
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 interface ProductInfoProps {
-  product: {
-    description: string;
-    basePrice: number;
-    discountPercentage: number;
-    totalPrice: number;
-    name: string;
-  };
+  product: ProductWithTotalPrice;
 }
 
 export function ProductInfo({ product }: ProductInfoProps) {
   const [quantity, setQuantity] = useState(1);
+
+  const { addProductToCart } = useContext(CartContext);
 
   function handleDescreaseQuantityClick() {
     setQuantity((prev) => (prev == 1 ? prev : prev - 1));
@@ -23,6 +21,11 @@ export function ProductInfo({ product }: ProductInfoProps) {
   function handleIncreaseQuantityClick() {
     setQuantity((prev) => prev + 1);
   }
+
+  function handleAddToCartClick() {
+    addProductToCart({ ...product, quantity });
+  }
+
   return (
     <div className="flex flex-col px-5 mt-5 my-8">
       <h2 className="text-lg">{product.name}</h2>
@@ -65,7 +68,10 @@ export function ProductInfo({ product }: ProductInfoProps) {
         <p className="text-sm opacity-60 text-justify">{product.description}</p>
       </div>
 
-      <Button className="mt-8 uppercase font-bold">
+      <Button
+        className="mt-8 uppercase font-bold"
+        onClick={handleAddToCartClick}
+      >
         Adicionar ao carrinho
       </Button>
 
