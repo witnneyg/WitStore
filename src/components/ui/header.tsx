@@ -39,12 +39,17 @@ export function Header() {
               Fazer Login
             </Button>
 
-            <Link to="/">
-              <Button variant="outline" className="w-full justify-start gap-2">
-                <HomeIcon size={16} />
-                Início
-              </Button>
-            </Link>
+            <SheetClose asChild>
+              <Link to="/">
+                <Button
+                  variant="outline"
+                  className="w-full justify-start gap-2"
+                >
+                  <HomeIcon size={16} />
+                  Início
+                </Button>
+              </Link>
+            </SheetClose>
 
             <Button variant="outline" className="w-full justify-start gap-2">
               <PercentIcon size={16} />
