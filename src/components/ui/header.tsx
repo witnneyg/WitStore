@@ -80,7 +80,7 @@ export function Header() {
 
       <Link to="/">
         <h1 className="text-lg font-semibold">
-          <span className="text-primary">Wit</span>Store
+          <span className="text-primary">Wit </span>Store
         </h1>
       </Link>
 
