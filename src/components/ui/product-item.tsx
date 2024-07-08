@@ -28,9 +28,7 @@ export function ProductItem({ product }: ProductItemProps) {
         </div>
 
         <div className="flex flex-col gap-1">
-          <p className="overflow-hidden text-ellipsis whitespace-nowrap text-sm">
-            {product.name}
-          </p>
+          <p className="truncate text-sm">{product.name}</p>
 
           <div className="flex items-center gap-2 ">
             {product.discountPercentage > 0 ? (
