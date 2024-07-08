@@ -9,6 +9,7 @@ import { ProductDetailsPage } from "./pages/product/index.tsx";
 
 import "@/styles/globals.css";
 import { CartProvider } from "./providers/cart.tsx";
+import { DealsPage } from "./pages/deals/index.tsx";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
       {
         path: "/products/:slug",
         element: <ProductDetailsPage />,
+      },
+      {
+        path: "/deals",
+        element: <DealsPage />,
       },
     ],
   },
