@@ -12,7 +12,7 @@ export function OrderProductItem({ orderProduct }: OrderProductItemProps) {
 
   return (
     <div className="flex items-center gap-4">
-      <div className="bg-accent rounded-lg w-[77px] h-[77px] flex items-center justify-center">
+      <div className="bg-accent rounded-lg w-[100px] h-[77px] flex items-center justify-center">
         <img
           src={orderProduct.imageUrls[0]}
           alt={orderProduct.name}

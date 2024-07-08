@@ -8,6 +8,9 @@ import { Card } from "@/components/ui/card";
 import { format } from "date-fns";
 import { CartProduct } from "@/providers/cart";
 import { OrderProductItem } from "./order-product-item";
+import { Separator } from "@/components/ui/separator";
+import { useMemo } from "react";
+import { computeProductTotalPrice } from "@/helpers/product";
 
 interface Order {
   status: string;
@@ -23,13 +26,31 @@ interface OrderItemProps {
 }
 
 export function OrderItem({ order }: OrderItemProps) {
+  const subtotal = useMemo(() => {
+    return order.orderProducts.reduce((acc, orderProduct) => {
+      return acc + orderProduct.basePrice * orderProduct.quantity;
+    }, 0);
+  }, [order.orderProducts]);
+
+  const total = useMemo(() => {
+    return order.orderProducts.reduce((acc, product) => {
+      const productWithTotalPrice = computeProductTotalPrice(product);
+      return acc + productWithTotalPrice.basePrice * product.quantity;
+    }, 0);
+  }, [order.orderProducts]);
+
+  const totalDiscounts = subtotal - total;
+
   return (
     <Card className="px-5">
       <Accordion type="single" className="w-fill" collapsible>
         <AccordionItem value={order.id}>
           <AccordionTrigger>
             <div className="flex flex-col gap-1 text-left">
-              Pedido com {order.orderProducts.length} produtos(s)
+              <p>Pedido com {order.orderProducts.length} produtos(s)</p>
+              <span className="text-sm opacity-60">
+                Feito em {format(order.createdAt, "dd/MM/y 'às' HH:mm")}
+              </span>
             </div>
           </AccordionTrigger>
           <AccordionContent>
@@ -59,6 +80,36 @@ export function OrderItem({ order }: OrderItemProps) {
                   orderProduct={orderProduct}
                 />
               ))}
+
+              <div className="flex flex-col gap-1 w-full text-xs">
+                <Separator />
+
+                <div className="flex justify-between w-full py-3">
+                  <p>Subtotal</p>
+                  <p>R$ {subtotal.toFixed(2)}</p>
+                </div>
+
+                <Separator />
+
+                <div className="flex justify-between w-full py-3">
+                  <p>Entrega</p>
+                  <p>GRÁTIS</p>
+                </div>
+
+                <Separator />
+
+                <div className="flex justify-between w-full py-3">
+                  <p>Descontos</p>
+                  <p>-R$ {totalDiscounts.toFixed(2)}</p>
+                </div>
+
+                <Separator />
+
+                <div className="flex justify-between w-full py-3 text-sm font-bold">
+                  <p>Total</p>
+                  <p>R$ {total.toFixed(2)}</p>
+                </div>
+              </div>
             </div>
           </AccordionContent>
         </AccordionItem>
