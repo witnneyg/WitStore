@@ -9,8 +9,8 @@ interface ProductItemProps {
 export function ProductItem({ product }: ProductItemProps) {
   return (
     <Link to={`/products/${product.slug}`}>
-      <div className="flex flex-col gap-4 w-full">
-        <div className="relative flex items-center justify-center bg-accent rounded-lg h-[170px] w-full">
+      <div className="flex flex-col gap-4 min-w-[156px]">
+        <div className="relative flex  w-full items-center justify-center rounded-lg bg-accent min-h-[160px] aspect-square">
           <img
             src={product.imageUrls[0]}
             alt={product.name}
@@ -19,7 +19,6 @@ export function ProductItem({ product }: ProductItemProps) {
               objectFit: "contain",
             }}
           />
-
           {product.discountPercentage > 0 && (
             <DiscountBadge className="absolute left-3 top-3">
               {product.discountPercentage}
@@ -33,16 +32,16 @@ export function ProductItem({ product }: ProductItemProps) {
           <div className="flex items-center gap-2 ">
             {product.discountPercentage > 0 ? (
               <>
-                <p className="font-semibold overflow-hidden text-ellipsis whitespace-nowrap">
+                <p className="font-semibold truncate">
                   R$ {product.totalPrice.toFixed(2)}
                 </p>
 
-                <p className="line-through opacity-75 text-xs overflow-hidden text-ellipsis whitespace-nowrap">
+                <p className="line-through opacity-75 text-xs truncate">
                   R$ {product.basePrice.toFixed(2)}
                 </p>
               </>
             ) : (
-              <p className="text-sm font-semibold overflow-hidden text-ellipsis whitespace-nowrap">
+              <p className="text-sm font-semibold truncate">
                 R$ {product.basePrice.toFixed(2)}
               </p>
             )}
