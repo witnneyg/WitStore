@@ -11,6 +11,7 @@ import { OrderProductItem } from "./order-product-item";
 import { Separator } from "@/components/ui/separator";
 import { useMemo } from "react";
 import { computeProductTotalPrice } from "@/helpers/product";
+import { getOrderStatus } from "../helpers/status";
 
 interface Order {
   status: string;
@@ -35,7 +36,7 @@ export function OrderItem({ order }: OrderItemProps) {
   const total = useMemo(() => {
     return order.orderProducts.reduce((acc, product) => {
       const productWithTotalPrice = computeProductTotalPrice(product);
-      return acc + productWithTotalPrice.basePrice * product.quantity;
+      return acc + productWithTotalPrice.totalPrice * product.quantity;
     }, 0);
   }, [order.orderProducts]);
 
@@ -58,7 +59,9 @@ export function OrderItem({ order }: OrderItemProps) {
               <div className="flex items-center justify-between">
                 <div className="font-bold ">
                   <p>Status</p>
-                  <p className="text-[#8162FF]">{order.status}</p>
+                  <p className="text-[#8162FF]">
+                    {getOrderStatus(order.status)}
+                  </p>
                 </div>
 
                 <div className="">
