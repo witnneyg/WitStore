@@ -7,6 +7,7 @@ import {
 import { Card } from "@/components/ui/card";
 import { format } from "date-fns";
 import { CartProduct } from "@/providers/cart";
+import { OrderProductItem } from "./order-product-item";
 
 interface Order {
   status: string;
@@ -14,7 +15,7 @@ interface Order {
   createdAt: Date;
   updateAd: Date;
   userId: string;
-  orderProducts: CartProduct[];
+  orderProducts: CartProduct[]; // fix orderProducts type...
 }
 
 interface OrderItemProps {
@@ -32,7 +33,7 @@ export function OrderItem({ order }: OrderItemProps) {
             </div>
           </AccordionTrigger>
           <AccordionContent>
-            <div className="flex flex-col">
+            <div className="flex flex-col gap-4">
               <div className="flex items-center justify-between">
                 <div className="font-bold ">
                   <p>Status</p>
@@ -51,6 +52,13 @@ export function OrderItem({ order }: OrderItemProps) {
                   <p className="opacity-60">Cartão</p>
                 </div>
               </div>
+
+              {order.orderProducts.map((orderProduct) => (
+                <OrderProductItem
+                  key={orderProduct.id}
+                  orderProduct={orderProduct}
+                />
+              ))}
             </div>
           </AccordionContent>
         </AccordionItem>
