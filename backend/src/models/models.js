@@ -21,11 +21,15 @@ const productSchema = new mongoose.Schema({
   category: { type: mongoose.Schema.Types.ObjectId, ref: "Category" },
 });
 
-productSchema.methods.toJSON = () => {
+productSchema.methods.toJSON = function () {
   const product = this.toObject();
-  product.basePrice = product.basePrice
-    ? parseFloat(product.basePrice.toString())
-    : null;
+  try {
+    if (product.basePrice) {
+      product.basePrice = parseFloat(product.basePrice.toString());
+    }
+  } catch (error) {
+    console.error(error);
+  }
   return product;
 };
 
