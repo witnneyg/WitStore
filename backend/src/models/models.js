@@ -21,5 +21,13 @@ const productSchema = new mongoose.Schema({
   category: { type: mongoose.Schema.Types.ObjectId, ref: "Category" },
 });
 
+productSchema.methods.toJSON = () => {
+  const product = this.toObject();
+  product.basePrice = product.basePrice
+    ? parseFloat(product.basePrice.toString())
+    : null;
+  return product;
+};
+
 export const Product =
   mongoose.models.Product || mongoose.model("Product", productSchema);
