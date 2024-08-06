@@ -10,7 +10,7 @@ export function ProductItem({ product }: ProductItemProps) {
   return (
     <Link to={`/products/${product.slug}`}>
       <div className="flex flex-col gap-4 min-w-[156px]">
-        <div className="relative flex  w-full items-center justify-center rounded-lg bg-accent min-h-[160px] aspect-square">
+        <div className="relative flex  w-full items-center justify-center rounded-lg bg-accent min-h-[170px] aspect-square">
           <img
             src={product.imageUrls[0]}
             alt={product.name}

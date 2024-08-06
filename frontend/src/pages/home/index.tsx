@@ -8,6 +8,7 @@ import bannerDesconto from "../../assets/banner-desconto.png";
 import bannerMouse from "../../assets/banner-mouses.png";
 import bannerFones from "../../assets/banner-fones.png";
 import bannerOfertas from "../../assets/banner-ofertas.png";
+import fretegratis from "../../assets/banner-fretegrátis.png";
 
 import { SectionTitle } from "../../components/ui/section-title";
 import { PromoBanner } from "./components/promo-banner";
@@ -71,14 +72,39 @@ export function HomePage() {
         <ProductList products={productsDiscount} />
       </div>
 
-      <PromoBanner src={bannerMouse} alt="Até 55% de desconto em mouses" />
+      <div className="flex  justify-center gap-4">
+        <PromoBanner
+          src={bannerMouse}
+          alt="Até 55% de desconto em mouses"
+          className="hidden md:block w-[48%]"
+        />
+        <PromoBanner
+          src={bannerFones}
+          alt="Até 20% de desconto em fones"
+          className="hidden md:block w-[48%]"
+        />
+      </div>
+      <PromoBanner
+        src={bannerMouse}
+        alt="Até 55% de desconto em mouses"
+        className="md:hidden"
+      />
 
       <div>
         <SectionTitle>Teclados</SectionTitle>
         <ProductList products={keyboards} />
       </div>
 
-      <PromoBanner src={bannerFones} alt="Até 20% de desconto em fones" />
+      <PromoBanner
+        src={bannerFones}
+        alt="Até 20% de desconto em fones"
+        className="hidden"
+      />
+      <PromoBanner
+        src={fretegratis}
+        alt="Até 20% de desconto em fones"
+        className="hidden md:block"
+      />
 
       <div>
         <SectionTitle>Fones</SectionTitle>

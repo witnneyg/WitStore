@@ -27,7 +27,7 @@ export function Cart() {
             {products.length > 0 ? (
               products.map((product) => (
                 <CartItem
-                  key={product.id}
+                  key={product._id}
                   product={computeProductTotalPrice(product as any) as any}
                 />
               ))
