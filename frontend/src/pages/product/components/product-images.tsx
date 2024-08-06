@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface ProductImagesProps {
   name: string;
@@ -7,6 +7,10 @@ interface ProductImagesProps {
 
 export function ProductImages({ imageUrls, name }: ProductImagesProps) {
   const [currentImage, setCurrentImage] = useState(imageUrls[0]);
+
+  useEffect(() => {
+    setCurrentImage(imageUrls[0]);
+  }, [imageUrls]);
 
   function handleImageClick(imageUrl: string) {
     setCurrentImage(imageUrl);
