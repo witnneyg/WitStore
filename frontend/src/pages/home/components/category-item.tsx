@@ -1,9 +1,13 @@
 import { Badge } from "@/components/ui/badge";
 import { CATEGORY_ICON } from "@/constants/category-icon";
-import { CategoryItemType } from "@/lib/utils";
 import { Link } from "react-router-dom";
 
-export function CategoryItem(category: CategoryItemType) {
+interface CategoryProps {
+  name: string;
+  slug: string;
+}
+
+export function CategoryItem(category: CategoryProps) {
   return (
     <Link to={`/category/${category.slug}`}>
       <Badge

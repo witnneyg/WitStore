@@ -21,7 +21,7 @@ export function Categories() {
   }, []);
 
   return (
-    <div className="grid grid-cols-2 gap-y-2 gap-x-4">
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-6 gap-y-2 gap-x-4">
       {categories.map((item) => (
         <CategoryItem name={item.name} slug={item.slug} key={item._id} />
       ))}
