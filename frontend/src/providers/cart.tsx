@@ -62,13 +62,13 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   function addProductToCart(product: CartProduct) {
     const productIsAlreadyOnCart = products.filter(
-      (cartProduct) => cartProduct.id == product.id
+      (cartProduct) => cartProduct._id == product._id
     );
 
     if (productIsAlreadyOnCart.length > 0) {
       setProducts((prev) =>
         prev.map((cartProduct) => {
-          if (cartProduct.id == product.id) {
+          if (cartProduct._id == product._id) {
             return {
               ...cartProduct,
               quantity: cartProduct.quantity + product.quantity,
@@ -88,7 +88,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     setProducts((prev) =>
       prev
         .map((cartProduct) => {
-          if (cartProduct.id == productId) {
+          if (cartProduct._id == productId) {
             return {
               ...cartProduct,
               quantity: cartProduct.quantity - 1,
@@ -102,14 +102,14 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   function removeProductFromCart(productId: string) {
     setProducts((prev) =>
-      prev.filter((cartProduct) => cartProduct.id !== productId)
+      prev.filter((cartProduct) => cartProduct._id !== productId)
     );
   }
 
   function increaseProductQuantity(productId: string) {
     setProducts((prev) =>
       prev.map((cartProduct) => {
-        if (cartProduct.id == productId) {
+        if (cartProduct._id == productId) {
           return {
             ...cartProduct,
             quantity: cartProduct.quantity + 1,

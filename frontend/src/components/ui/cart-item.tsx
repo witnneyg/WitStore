@@ -14,15 +14,15 @@ export function CartItem({ product }: CardItemProps) {
   } = useContext(CartContext);
 
   function handleDescreaseQuantityClick() {
-    decreaseProductQuantity(product.id);
+    decreaseProductQuantity(product._id);
   }
 
   function handleIncreaseQuantityClick() {
-    increaseProductQuantity(product.id);
+    increaseProductQuantity(product._id);
   }
 
   function handleRemoveProductClick() {
-    removeProductFromCart(product.id);
+    removeProductFromCart(product._id);
   }
 
   return (
