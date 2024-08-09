@@ -76,12 +76,12 @@ export function HomePage() {
         <PromoBanner
           src={bannerMouse}
           alt="Até 55% de desconto em mouses"
-          className="hidden md:block w-[48%]"
+          className="hidden md:block w-[47%]"
         />
         <PromoBanner
           src={bannerFones}
           alt="Até 20% de desconto em fones"
-          className="hidden md:block w-[48%]"
+          className="hidden md:block w-[47%]"
         />
       </div>
       <PromoBanner
