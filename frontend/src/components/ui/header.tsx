@@ -100,11 +100,11 @@ export function Header() {
       </Link>
 
       <div className="sm:flex items-center gap-6 font-semibold hidden">
-        <a href="">Início</a>
-        <a href="" className="border-x-2 border-x-zinc-800 px-4">
+        <Link to="/">Início</Link>
+        <Link to="/catalog" className="border-x-2 border-x-zinc-800 px-4">
           Catálogo
-        </a>
-        <a href="">Ofertas</a>
+        </Link>
+        <Link to="/">Ofertas</Link>
       </div>
 
       <Sheet>
