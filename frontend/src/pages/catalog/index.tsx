@@ -1,51 +1,29 @@
 import { Badge } from "@/components/ui/badge";
 import { ShapesIcon } from "lucide-react";
-import { useState } from "react";
-import { CategoryItemType } from "@/lib/utils";
+import { useEffect, useState } from "react";
 import { CategoryItem } from "./components/category-item";
+import { CategoryType } from "@/lib/utils";
 
 import mouse from "../../assets/mouse.png";
+import axios from "axios";
 
 export function CatalogPage() {
-  const [categories] = useState<CategoryItemType[]>([
-    {
-      name: "Mouses",
-      slug: "mouses",
-      id: "1",
-      imageUrl: mouse,
-    },
-    {
-      name: "Mouse2",
-      slug: "mouses",
-      id: "2",
-      imageUrl: mouse,
-    },
-    {
-      name: "Mouses3",
-      slug: "mouses",
-      id: "3",
-      imageUrl: mouse,
-    },
-    {
-      name: "Mouses4",
-      slug: "mouses",
-      id: "4",
-      imageUrl: mouse,
-    },
-    {
-      name: "Mouses5",
-      slug: "mouses",
-      id: "5",
-      imageUrl: mouse,
-    },
-    {
-      name: "Mouses6",
-      slug: "mouses",
-      id: "6",
-      imageUrl: mouse,
-    },
-  ]);
+  const [categories, setCategories] = useState<CategoryType[]>([]);
 
+  useEffect(() => {
+    async function getCategories() {
+      try {
+        const res = await axios.get("http://localhost:8888/categories");
+        setCategories(res.data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    getCategories();
+  }, []);
+
+  console.log(categories);
   return (
     <div className="flex flex-col p-5 gap-8">
       <Badge
@@ -58,7 +36,7 @@ export function CatalogPage() {
 
       <div className="grid grid-cols-2 gap-8">
         {categories.map((category) => (
-          <CategoryItem key={category.id} category={category} />
+          <CategoryItem key={category._id} category={category} />
         ))}
       </div>
     </div>
