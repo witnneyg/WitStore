@@ -45,7 +45,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     localStorage.setItem("@wit-sore/cart-products", JSON.stringify(products));
   }, [products]);
-  console.log({ products }, "opi");
+
   const subtotal = useMemo(() => {
     return products.reduce((acc, product) => {
       return acc + product.basePrice * product.quantity;
