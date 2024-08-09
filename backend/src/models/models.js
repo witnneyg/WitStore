@@ -1,6 +1,32 @@
 import mongoose from "mongoose";
+import bcrypt from "bcrypt";
 
-const categorySchema = new mongoose.Schema({
+const saltRounds = 10;
+
+const UserSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  email: { type: String, required: true, unique: true },
+  password: { type: String, required: true, select: false },
+});
+
+UserSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) {
+    return next();
+  }
+
+  try {
+    const hash = await bcrypt.hash(this.password, saltRounds);
+
+    this.password = hash;
+    next();
+  } catch (error) {
+    next(error);
+  }
+});
+
+export const User = mongoose.models.User || mongoose.model("User", UserSchema);
+
+const CategorySchema = new mongoose.Schema({
   name: { type: String, required: true },
   slug: { type: String, required: true },
   imageUrl: { type: String },
@@ -8,9 +34,9 @@ const categorySchema = new mongoose.Schema({
 });
 
 export const Category =
-  mongoose.models.Category || mongoose.model("Category", categorySchema);
+  mongoose.models.Category || mongoose.model("Category", CategorySchema);
 
-const productSchema = new mongoose.Schema({
+const ProductSchema = new mongoose.Schema({
   name: { type: String, required: true },
   slug: { type: String, required: true },
   description: { type: String },
@@ -21,7 +47,7 @@ const productSchema = new mongoose.Schema({
   category: { type: mongoose.Schema.Types.ObjectId, ref: "Category" },
 });
 
-productSchema.methods.toJSON = function () {
+ProductSchema.methods.toJSON = function () {
   const product = this.toObject();
   try {
     if (product.basePrice) {
@@ -34,4 +60,4 @@ productSchema.methods.toJSON = function () {
 };
 
 export const Product =
-  mongoose.models.Product || mongoose.model("Product", productSchema);
+  mongoose.models.Product || mongoose.model("Product", ProductSchema);
