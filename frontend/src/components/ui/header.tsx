@@ -16,10 +16,14 @@ import {
   SheetTrigger,
 } from "./sheet";
 import { PercentIcon } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Cart } from "./cart";
+import { useState } from "react";
 
 export function Header() {
+  const [user] = useState(true);
+  const navigate = useNavigate();
+
   return (
     <Card className="flex justify-between items-center p-[1.875rem]  ">
       <div className="sm:hidden">
@@ -99,7 +103,7 @@ export function Header() {
         </h1>
       </Link>
 
-      <div className="sm:flex items-center gap-6 font-semibold hidden">
+      <div className="sm:flex items-center gap-6 font-semibold hidden ml-10">
         <Link to="/">Início</Link>
         <Link to="/catalog" className="border-x-2 border-x-zinc-800 px-4">
           Catálogo
@@ -107,17 +111,39 @@ export function Header() {
         <Link to="/">Ofertas</Link>
       </div>
 
-      <Sheet>
-        <SheetTrigger asChild>
-          <Button size="icon" variant="outline">
-            <ShoppingCartIcon />
+      <div className="items-center gap-1 hidden sm:flex">
+        {user ? (
+          <Button
+            size="icon"
+            variant="outline"
+            className="w-16"
+            onClick={() => "logout"}
+          >
+            Logout
           </Button>
-        </SheetTrigger>
+        ) : (
+          <Button
+            size="icon"
+            variant="outline"
+            className="w-16"
+            onClick={() => navigate("/auth/login")}
+          >
+            login
+          </Button>
+        )}
 
-        <SheetContent>
-          <Cart />
-        </SheetContent>
-      </Sheet>
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button size="icon" variant="outline">
+              <ShoppingCartIcon />
+            </Button>
+          </SheetTrigger>
+
+          <SheetContent>
+            <Cart />
+          </SheetContent>
+        </Sheet>
+      </div>
     </Card>
   );
 }
