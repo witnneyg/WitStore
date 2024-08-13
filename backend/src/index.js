@@ -15,8 +15,8 @@ config();
 app.use(cors());
 app.use(express.json());
 
-app.use("/categories", authMiddleware, getCategory);
-app.use("/products", authMiddleware, getProduct);
+app.use("/categories", getCategory);
+app.use("/products", getProduct);
 app.use("/auth", registerUser);
 app.use("/auth", loginUser);
 

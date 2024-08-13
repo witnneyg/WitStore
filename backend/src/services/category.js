@@ -7,11 +7,11 @@ export async function getCategory() {
   return getCategory;
 }
 
-export async function getCategoryById(categoryId) {
+export async function getCategoryBySlug(slug) {
   await databaseConnection();
 
-  const getCategoryById = await Category.findById(categoryId).populate(
+  const getCategoryBySlug = await Category.findOne({ slug }).populate(
     "products"
   );
-  return getCategoryById;
+  return getCategoryBySlug;
 }

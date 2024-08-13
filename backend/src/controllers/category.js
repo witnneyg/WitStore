@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getCategory, getCategoryById } from "../services/category.js";
+import { getCategory, getCategoryBySlug } from "../services/category.js";
 
 const router = Router();
 
@@ -12,10 +12,10 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/:categoryId", async (req, res) => {
+router.get("/:categorySlug", async (req, res) => {
   try {
-    const categoryById = await getCategoryById(req.params.categoryId);
-    res.send(categoryById);
+    const categoryBySlug = await getCategoryBySlug(req.params.categorySlug);
+    res.send(categoryBySlug);
   } catch (error) {
     res.status(500).send(error);
   }
