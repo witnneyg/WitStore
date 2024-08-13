@@ -2,7 +2,6 @@ import { Categories } from "./components/categories";
 import { ProductList } from "../../components/ui/product-list";
 import { CategoryType, Product } from "@/lib/utils";
 import { useEffect, useState } from "react";
-import axios from "axios";
 
 import bannerDesconto from "../../assets/banner-desconto.png";
 import bannerMouse from "../../assets/banner-mouses.png";
@@ -12,6 +11,7 @@ import fretegratis from "../../assets/banner-fretegrátis.png";
 
 import { SectionTitle } from "../../components/ui/section-title";
 import { PromoBanner } from "./components/promo-banner";
+import { api } from "@/services/api";
 
 export function HomePage() {
   const [categoriesData, setCategoriesData] = useState<CategoryType[]>([]);
@@ -19,7 +19,7 @@ export function HomePage() {
   useEffect(() => {
     async function getCategories() {
       try {
-        const response = await axios.get("http://localhost:8888/categories");
+        const response = await api.get("/categories");
         setCategoriesData(response.data);
       } catch (error) {
         console.log(error);

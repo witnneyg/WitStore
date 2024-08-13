@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { CategoryItem } from "./category-item";
-import axios from "axios";
 import { CategoryType } from "@/lib/utils";
+import { api } from "@/services/api";
 
 export function Categories() {
   const [categories, setCategories] = useState<CategoryType[]>([]);
@@ -9,7 +9,7 @@ export function Categories() {
   useEffect(() => {
     async function getCategory() {
       try {
-        const res = await axios.get("http://localhost:8888/categories");
+        const res = await api.get("/categories");
 
         setCategories(res.data);
       } catch (error) {

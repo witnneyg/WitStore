@@ -7,7 +7,7 @@ import { ProductInfo } from "./components/product-info";
 import { computeProductTotalPrice } from "@/helpers/product";
 import { ProductList } from "../../components/ui/product-list";
 import { SectionTitle } from "@/components/ui/section-title";
-import axios from "axios";
+import { api } from "@/services/api";
 
 export function ProductDetailsPage() {
   const [product, setProduct] = useState<Product>();
@@ -20,13 +20,11 @@ export function ProductDetailsPage() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const productRes = await axios.get(
-          `http://localhost:8888/products/${params.slug}`
-        );
+        const productRes = await api.get(`/products/${params.slug}`);
         setProduct(productRes.data);
 
-        const categoryRes = await axios.get(
-          `http://localhost:8888/categories/${productRes.data.categoryId}`
+        const categoryRes = await api.get(
+          `/categories/${productRes.data.categoryId}`
         );
         setRecommendedProducts(categoryRes.data.products);
       } catch (err) {

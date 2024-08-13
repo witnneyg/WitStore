@@ -4,8 +4,7 @@ import { useEffect, useState } from "react";
 import { CategoryItem } from "./components/category-item";
 import { CategoryType } from "@/lib/utils";
 
-import mouse from "../../assets/mouse.png";
-import axios from "axios";
+import { api } from "@/services/api";
 
 export function CatalogPage() {
   const [categories, setCategories] = useState<CategoryType[]>([]);
@@ -13,7 +12,7 @@ export function CatalogPage() {
   useEffect(() => {
     async function getCategories() {
       try {
-        const res = await axios.get("http://localhost:8888/categories");
+        const res = await api.get("/categories");
         setCategories(res.data);
       } catch (error) {
         console.error(error);
@@ -23,7 +22,6 @@ export function CatalogPage() {
     getCategories();
   }, []);
 
-  console.log(categories);
   return (
     <div className="flex flex-col p-5 gap-8">
       <Badge
