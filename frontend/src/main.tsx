@@ -11,8 +11,9 @@ import { CartProvider } from "./providers/cart.tsx";
 import { DealsPage } from "./pages/deals/index.tsx";
 
 import "@/styles/globals.css";
-import { LoginPage } from "./pages/login/index.tsx";
 import { LoginLayout } from "./layouts/loginLayout.tsx";
+import { LoginPage } from "./pages/auth/login/index.tsx";
+import { RegisterPage } from "./pages/auth/register/index.tsx";
 
 const router = createBrowserRouter([
   {
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
       {
         path: "login",
         element: <LoginPage />,
+      },
+      {
+        path: "register",
+        element: <RegisterPage />,
       },
     ],
   },
