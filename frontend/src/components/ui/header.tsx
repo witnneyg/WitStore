@@ -108,7 +108,7 @@ export function Header() {
         <Link to="/catalog" className="border-x-2 border-x-zinc-800 px-4">
           Catálogo
         </Link>
-        <Link to="/">Ofertas</Link>
+        <Link to="/deals">Ofertas</Link>
       </div>
 
       <div className="items-center gap-1 hidden sm:flex">

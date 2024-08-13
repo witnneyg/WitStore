@@ -42,11 +42,8 @@ export function HomePage() {
   }
 
   const productsDiscount = getProductsByDiscount();
-
   const keyboards = getProductsBySlug("teclados");
   const headphones = getProductsBySlug("headphones");
-
-  getProductsByDiscount();
 
   return (
     <div className="flex flex-col gap-8 py-8 md:py-0">
