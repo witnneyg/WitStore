@@ -15,3 +15,12 @@ export async function getCategoryBySlug(slug) {
   );
   return getCategoryBySlug;
 }
+
+export async function getCategoryById(categoryId) {
+  await databaseConnection();
+
+  const getCategoryById = await Category.findById(categoryId).populate(
+    "products"
+  );
+  return getCategoryById;
+}
