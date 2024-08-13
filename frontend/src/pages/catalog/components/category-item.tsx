@@ -1,11 +1,6 @@
-import { CategoryItemType } from "@/lib/utils";
 import { Link } from "react-router-dom";
 
-interface CategoryItemProps {
-  category: CategoryItemType;
-}
-
-export function CategoryItem({ category }: CategoryItemProps) {
+export function CategoryItem({ category }: any) {
   return (
     <Link to={`/category/${category.slug}`}>
       <div className="flex flex-col">

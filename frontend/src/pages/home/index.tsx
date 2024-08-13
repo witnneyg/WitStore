@@ -29,7 +29,6 @@ export function HomePage() {
     getCategories();
   }, []);
 
-  console.log(categoriesData);
   function getProductsBySlug(slug: string): Product[] {
     const categoryData = categoriesData.find((cat) => cat.slug == slug);
 
@@ -43,7 +42,6 @@ export function HomePage() {
   }
 
   const productsDiscount = getProductsByDiscount();
-  console.log({ productsDiscount });
 
   const keyboards = getProductsBySlug("teclados");
   const headphones = getProductsBySlug("headphones");
@@ -72,16 +70,16 @@ export function HomePage() {
         <ProductList products={productsDiscount} />
       </div>
 
-      <div className="flex  justify-center gap-4">
+      <div className="flex justify-center gap-5">
         <PromoBanner
           src={bannerMouse}
           alt="Até 55% de desconto em mouses"
-          className="hidden md:block w-[47%]"
+          className="hidden md:block w-[46%]"
         />
         <PromoBanner
           src={bannerFones}
           alt="Até 20% de desconto em fones"
-          className="hidden md:block w-[47%]"
+          className="hidden md:block w-[46%]"
         />
       </div>
       <PromoBanner
