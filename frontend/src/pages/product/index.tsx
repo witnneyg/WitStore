@@ -26,7 +26,7 @@ export function ProductDetailsPage() {
         setProduct(productRes.data);
 
         const categoryRes = await api.get(
-          `/categories/${productRes.data.categoryId}`
+          `/categories/id/${productRes.data.categoryId}`
         );
         console.log({ categoryRes });
 
