@@ -15,7 +15,7 @@ import { getOrderStatus } from "../helpers/status";
 
 interface Order {
   status: string;
-  id: string;
+  _id: string;
   createdAt: Date;
   updateAd: Date;
   userId: string;
@@ -45,7 +45,7 @@ export function OrderItem({ order }: OrderItemProps) {
   return (
     <Card className="px-5">
       <Accordion type="single" className="w-fill" collapsible>
-        <AccordionItem value={order.id}>
+        <AccordionItem value={order._id}>
           <AccordionTrigger>
             <div className="flex flex-col gap-1 text-left">
               <p className="uppercase font-bold">
@@ -81,7 +81,7 @@ export function OrderItem({ order }: OrderItemProps) {
 
               {order.orderProducts.map((orderProduct) => (
                 <OrderProductItem
-                  key={orderProduct.id}
+                  key={orderProduct._id}
                   orderProduct={orderProduct}
                 />
               ))}
