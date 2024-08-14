@@ -5,6 +5,7 @@ import getCategory from "./controllers/category.js";
 import getProduct from "./controllers/product.js";
 import registerUser from "./controllers/register-controller.js";
 import loginUser from "./controllers/login-controller.js";
+import checkout from "./controllers/checkout-controller.js";
 import { authMiddleware } from "./middleware/authenticate-middleware.js";
 
 const app = express();
@@ -19,6 +20,7 @@ app.use("/categories", getCategory);
 app.use("/products", getProduct);
 app.use("/auth", registerUser);
 app.use("/auth", loginUser);
+app.use("/checkout", authMiddleware, checkout);
 
 app.listen(port, () => {
   console.log(`Rodando na porta! ${port}`);
