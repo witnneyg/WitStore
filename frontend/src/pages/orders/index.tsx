@@ -7,13 +7,13 @@ export function OrdersPage() {
   const orders = [
     {
       status: "WAITING_FOR_PAYMENT",
-      id: "1",
+      _id: "1",
       createdAt: new Date(),
       updateAd: new Date(),
       userId: "userId",
       orderProducts: [
         {
-          id: "1",
+          _id: "1",
           name: "Logitech MX Master 3s",
           slug: "logitech-mx-master-3s",
           description:
@@ -29,13 +29,13 @@ export function OrdersPage() {
     },
     {
       status: "PAYMENT_CONFIRMED",
-      id: "2",
+      _id: "2",
       createdAt: new Date(),
       updateAd: new Date(),
       userId: "userId",
       orderProducts: [
         {
-          id: "1",
+          _id: "1",
           name: "Logitech G pro",
           slug: "logitech G pro",
           description:
@@ -60,12 +60,12 @@ export function OrdersPage() {
         <PackageSearchIcon size={16} />
         Meus Pedidos
       </Badge>
-
       <div className="flex flex-col gap-5 mt-5">
         {orders.map((order) => (
-          <OrderItem key={order.id} order={order} />
+          <OrderItem key={order._id} order={order} />
         ))}
       </div>
+      Em desenvolvimento...
     </div>
   );
 }

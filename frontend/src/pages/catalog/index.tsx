@@ -22,6 +22,8 @@ export function CatalogPage() {
     getCategories();
   }, []);
 
+  console.log({ categories });
+
   return (
     <div className="flex flex-col p-5 gap-8">
       <Badge

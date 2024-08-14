@@ -10,6 +10,7 @@ import { api } from "@/services/api";
 export function CategoryProducts() {
   const params = useParams();
   const [products, setProducts] = useState<Product[]>([]);
+
   useEffect(() => {
     async function getProductsFromCategories() {
       try {
