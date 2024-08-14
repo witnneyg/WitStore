@@ -2,6 +2,7 @@ import {
   HomeIcon,
   ListOrderedIcon,
   LogInIcon,
+  LogOut,
   MenuIcon,
   PackageSearchIcon,
   ShoppingCartIcon,
@@ -16,13 +17,23 @@ import {
   SheetTrigger,
 } from "./sheet";
 import { PercentIcon } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Cart } from "./cart";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export function Header() {
-  const [user] = useState(true);
-  const navigate = useNavigate();
+  const [userIsLoggin, setUserIsLoggin] = useState(Boolean);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    setUserIsLoggin(!!token);
+  }, []);
+
+  function handleLogout() {
+    localStorage.removeItem("token");
+    setUserIsLoggin(false);
+  }
 
   return (
     <Card className="flex justify-between items-center p-[1.875rem]  ">
@@ -40,11 +51,6 @@ export function Header() {
             </SheetHeader>
 
             <div className="flex flex-col gap-3 mt-2">
-              <Button variant="outline" className="w-full justify-start gap-2">
-                <LogInIcon size={16} />
-                Fazer Login
-              </Button>
-
               <SheetClose asChild>
                 <Link to="/">
                   <Button
@@ -92,6 +98,31 @@ export function Header() {
                   </Button>
                 </Link>
               </SheetClose>
+
+              <SheetClose asChild>
+                {userIsLoggin ? (
+                  <Link to="/">
+                    <Button
+                      variant="outline"
+                      className="w-full justify-start gap-2"
+                      onClick={handleLogout}
+                    >
+                      <LogOut size={16} />
+                      Fazer Logout
+                    </Button>
+                  </Link>
+                ) : (
+                  <Link to="/auth/login">
+                    <Button
+                      variant="outline"
+                      className="w-full justify-start gap-2"
+                    >
+                      <LogInIcon size={16} />
+                      Fazer Login
+                    </Button>
+                  </Link>
+                )}
+              </SheetClose>
             </div>
           </SheetContent>
         </Sheet>
@@ -103,7 +134,7 @@ export function Header() {
         </h1>
       </Link>
 
-      <div className="sm:flex items-center gap-6 font-semibold hidden ml-10">
+      <div className="sm:flex items-center gap-6 font-semibold hidden ml-16">
         <Link to="/">Início</Link>
         <Link to="/catalog" className="border-x-2 border-x-zinc-800 px-4">
           Catálogo
@@ -111,26 +142,33 @@ export function Header() {
         <Link to="/deals">Ofertas</Link>
       </div>
 
-      <div className="items-center gap-1 hidden sm:flex">
-        {user ? (
-          <Button
-            size="icon"
-            variant="outline"
-            className="w-16"
-            onClick={() => "logout"}
-          >
-            Logout
-          </Button>
-        ) : (
-          <Button
-            size="icon"
-            variant="outline"
-            className="w-16"
-            onClick={() => navigate("/auth/login")}
-          >
-            login
-          </Button>
-        )}
+      <div className="items-center gap-1 flex">
+        <div className="hidden sm:flex">
+          {userIsLoggin ? (
+            <Link to="/">
+              <Button
+                size="icon"
+                variant="outline"
+                className="w-[5rem] items-center gap-1"
+                onClick={handleLogout}
+              >
+                <LogOut size={16} />
+                Logout
+              </Button>
+            </Link>
+          ) : (
+            <Link to="/auth/login">
+              <Button
+                size="icon"
+                variant="outline"
+                className="w-[5rem] items-center gap-1"
+              >
+                <LogInIcon size={16} />
+                login
+              </Button>
+            </Link>
+          )}
+        </div>
 
         <Sheet>
           <SheetTrigger asChild>
