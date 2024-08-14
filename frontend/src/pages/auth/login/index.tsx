@@ -28,7 +28,10 @@ export function LoginPage() {
   async function onSubmit(data: FormData) {
     try {
       const response = await api.post("/auth/login", data);
-      console.log(response.data);
+
+      const token = response.data.token;
+
+      localStorage.setItem("token", token);
 
       navigate("/");
     } catch (error: any) {
