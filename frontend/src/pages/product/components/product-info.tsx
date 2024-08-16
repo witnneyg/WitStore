@@ -27,11 +27,11 @@ export function ProductInfo({ product }: ProductInfoProps) {
   }
 
   return (
-    <div className="flex flex-col px-5 mt-5 my-8">
-      <h2 className="text-lg">{product.name}</h2>
+    <div className="flex flex-col px-5 mt-5 my-8 lg:bg-accent lg:rounded-lg lg:h-full lg:my-0 lg:p-4 lg:px-8  lg:flex-1 lg:min-h-[600px]">
+      <h2 className="text-lg lg:text-2xl">{product.name}</h2>
 
-      <div className="flex items-center gap-2">
-        <h1 className="text-xl font-bold">
+      <div className="flex items-center gap-2 lg:mt-4">
+        <h1 className="text-xl font-bold lg:text-2xl">
           R$ {product.totalPrice.toFixed(2)}
         </h1>
         {product.discountPercentage > 0 && (
@@ -50,6 +50,7 @@ export function ProductInfo({ product }: ProductInfoProps) {
           size="icon"
           variant="outline"
           onClick={handleDescreaseQuantityClick}
+          className="lg:bg-accent lg:border lg:border-zinc-800 lg:w-8 lg:h-8"
         >
           <ArrowLeftIcon size={16} />
         </Button>
@@ -58,6 +59,7 @@ export function ProductInfo({ product }: ProductInfoProps) {
           size="icon"
           variant="outline"
           onClick={handleIncreaseQuantityClick}
+          className="lg:bg-accent lg:border lg:border-zinc-800 lg:w-8 lg:h-8"
         >
           <ArrowRightIcon size={16} />
         </Button>
@@ -75,19 +77,20 @@ export function ProductInfo({ product }: ProductInfoProps) {
         Adicionar ao carrinho
       </Button>
 
-      <div className="bg-accent flex items-center px-5 py-2 justify-between mt-5 rounded-lg">
-        <div className="flex items-center gap-2">
+      <div className="bg-accent flex items-center px-5 py-2 justify-between mt-5 rounded-lg lg:bg-neutral-800 lg:w-full">
+        <div className="flex items-center gap-2 ">
           <TruckIcon />
-          <div className="flex flex-col">
+          <div className="flex flex-col ">
             <p className="text-xs">
-              Entrega via <span className="font-bold">FSPacket</span>
+              Entrega via{" "}
+              <span className="font-bold lg:text-base">FSPacket</span>
             </p>
-            <p className="text-[#8162FF] text-xs">
+            <p className="text-[#8162FF] text-xs lg:text-base">
               Envio para <span className="font-bold">todo Brasil</span>
             </p>
           </div>
         </div>
-        <p className="font-bold text-xs">Frete grátis</p>
+        <p className="font-bold text-xs lg:text-base">Frete grátis</p>
       </div>
     </div>
   );
