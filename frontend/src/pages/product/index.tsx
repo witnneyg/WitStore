@@ -36,7 +36,7 @@ export function ProductDetailsPage() {
   if (!product) return null;
 
   return (
-    <div className="fex flex-col gap-8 pb-8">
+    <div className="fex flex-col gap-8 pb-8 container mx-auto">
       <div className="hidden lg:flex lg:gap-4 lg:m-7">
         <ProductImages imageUrls={product.imageUrls} name={product.name} />
         <ProductInfo product={computeProductTotalPrice(product)} />

@@ -27,7 +27,7 @@ export function ProductInfo({ product }: ProductInfoProps) {
   }
 
   return (
-    <div className="flex flex-col px-5 mt-5 my-8 lg:bg-accent lg:rounded-lg lg:h-full lg:my-0 lg:p-4 lg:px-8  lg:flex-1 lg:min-h-[600px]">
+    <div className="flex flex-col px-5 mt-5 my-8 lg:bg-accent lg:rounded-lg lg:h-full lg:my-0 lg:p-4 lg:px-8  lg:flex-1 ">
       <h2 className="text-lg lg:text-2xl">{product.name}</h2>
 
       <div className="flex items-center gap-2 lg:mt-4">
