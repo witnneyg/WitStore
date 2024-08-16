@@ -1,8 +1,9 @@
 import { useCallback, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
 import { api } from "@/services/api";
 import { error } from "console";
+import { useForm } from "react-hook-form";
 
 interface FormData {
   email: string;
@@ -11,116 +12,95 @@ interface FormData {
 }
 
 export function RegisterPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
-  const [errors, setErrors] = useState({
-    email: "",
-    password: "",
-    message: "",
-    name: "",
-  });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>();
   const [showPassword, setShowPassword] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
-  const validateEmail = (email: string) =>
-    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-
-  const nameIsValid = (name: string) => name.length === 0;
-
-  const validatePassword = (password: string) => password.length >= 4;
+  const navigate = useNavigate();
 
   const handleShowPassword = useCallback(() => {
     setShowPassword((prev) => !prev);
   }, []);
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-
-    const formData = { name, email, password };
-
-    if (!nameIsValid) {
-      setErrors((prev) => ({ ...prev, name: "Nome inválido" }));
-      return;
-    }
-
-    if (!validateEmail(email)) {
-      setErrors((prev) => ({ ...prev, email: "Email inválido" }));
-      return;
-    }
-
-    if (!validatePassword(password)) {
-      setErrors((prev) => ({
-        ...prev,
-        password: "Senha deve ter ao menos 4 caracteres",
-      }));
-      return;
-    }
-
-    registerNewUser(formData);
-  }
-
-  async function registerNewUser(formData: FormData) {
+  async function onSubmit(formData: FormData) {
     try {
       const response = await api.post("/auth/register", formData);
-      console.log(response.data);
+      if (response.status === 201) {
+        const token = response.data.token;
+
+        localStorage.setItem("token", token);
+
+        navigate("/");
+      }
+
+      setErrorMessage("");
     } catch (error: any) {
       if (error.response && error.response.status == 409) {
-        setErrors((prev) => ({
-          ...prev,
-          message: "Este email já está em uso. Por favor, tente outro.",
-        }));
+        setErrorMessage("Este email já está em uso. Por favor, tente outro.");
       } else {
-        setErrors((prev) => ({
-          ...prev,
-          message: "Ocorreu um erro ao tentar registrar o usuário.",
-        }));
+        setErrorMessage("Ocorreu um erro ao tentar registrar o usuário.");
       }
     }
   }
 
   return (
     <form
-      onSubmit={handleSubmit}
+      onSubmit={handleSubmit(onSubmit)}
       className="flex flex-col gap-3 items-center justify-center h-full w-full "
     >
       <h1 className="text-4xl font-bold text-primary">Cadastre-se</h1>
       <div className="flex flex-col h-[68px]">
         <input
           type="text"
-          name="name"
           id="name"
           placeholder="Digite seu nome"
           className="w-96 rounded-xl p-3  outline-none text-black"
-          onChange={(e) => setName(e.target.value)}
+          {...register("name", { required: "Nome é obrigatório" })}
         />
         {errors.name && (
-          <p className="text-red-600 text-sm pl-3 py-1">{errors.name}</p>
+          <p className="text-red-600 text-sm pl-3 py-1">
+            {errors.name.message}
+          </p>
         )}
       </div>
       <div className="flex flex-col h-[68px]">
         <input
           type="text"
-          name="email"
           id="email"
           placeholder="Digite seu email"
           className="w-96 rounded-xl p-3 outline-none text-black"
-          onChange={(e) => setEmail(e.target.value)}
+          {...register("email", {
+            required: "Email é obrigatório",
+            pattern: {
+              value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+              message: "Email inválido",
+            },
+          })}
         />
         {errors.email && (
-          <p className="text-red-600 text-sm pl-3 py-1">{errors.email}</p>
+          <p className="text-red-600 text-sm pl-3 py-1">
+            {errors.email.message}
+          </p>
         )}
       </div>
       <div className="flex flex-col h-[68px]">
         <div className="flex relative w-96 rounded-xl text-black">
           <input
             type={showPassword ? "text" : "password"}
-            name="password"
             id="password"
             placeholder="Digite sua senha"
             className="flex w-full rounded-xl p-3 outline-none"
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
+            {...register("password", {
+              required: "Senha é obrigatória",
+              minLength: {
+                value: 4,
+                message: "Senha deve ter ao menos 4 caracteres",
+              },
+            })}
           />
           <span
             className="absolute right-3 top-3 cursor-pointer"
@@ -130,10 +110,12 @@ export function RegisterPage() {
           </span>
         </div>
         {errors.password && (
-          <p className="text-red-600 text-sm pl-3 py-1">{errors.password}</p>
+          <p className="text-red-600 text-sm pl-3 py-1">
+            {errors.password.message}
+          </p>
         )}
-        {errors.message && (
-          <p className="text-red-600 text-sm pl-3 py-1">{errors.message}</p>
+        {errorMessage && (
+          <p className="text-red-600 text-sm pl-3 py-1">{errorMessage}</p>
         )}
       </div>
 

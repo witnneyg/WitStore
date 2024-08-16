@@ -29,11 +29,12 @@ export function LoginPage() {
     try {
       const response = await api.post("/auth/login", data);
 
-      const token = response.data.token;
+      if (response.status === 201) {
+        const token = response.data.token;
+        localStorage.setItem("token", token);
 
-      localStorage.setItem("token", token);
-
-      navigate("/");
+        navigate("/");
+      }
     } catch (error: any) {
       if (error.response && error.response.status === 400) {
         setErrorMessage("Email ou senha incorretos.");
