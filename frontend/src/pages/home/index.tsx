@@ -67,16 +67,16 @@ export function HomePage() {
         <ProductList products={productsDiscount} />
       </div>
 
-      <div className="flex justify-center gap-5">
+      <div className="flex justify-center gap-5 max-w-full">
         <PromoBanner
           src={bannerMouse}
           alt="Até 55% de desconto em mouses"
-          className="hidden md:block w-[45%]"
+          className="hidden md:block md:w-[44%] lg:w-[45%]"
         />
         <PromoBanner
           src={bannerFones}
           alt="Até 20% de desconto em fones"
-          className="hidden md:block w-[45%]"
+          className="hidden md:block md:w-[44%] lg:w-[45%]"
         />
       </div>
       <PromoBanner
