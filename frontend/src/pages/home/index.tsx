@@ -57,53 +57,54 @@ export function HomePage() {
         alt="Até 55% de desconto esse mês"
         className="hidden md:block"
       />
+      <div className="md:container md:mx-auto flex flex-col gap-8 py-8 md:py-0">
+        <div className="mt-8 px-5">
+          <Categories />
+        </div>
 
-      <div className="mt-8 px-5">
-        <Categories />
-      </div>
+        <div>
+          <SectionTitle>Ofertas</SectionTitle>
+          <ProductList products={productsDiscount} />
+        </div>
 
-      <div>
-        <SectionTitle>Ofertas</SectionTitle>
-        <ProductList products={productsDiscount} />
-      </div>
-
-      <div className="flex justify-center gap-5 max-w-full">
+        <div className="flex justify-center md:gap-6 lg:gap-8 w-full md:px-4 lg:px-3 ">
+          <PromoBanner
+            src={bannerMouse}
+            alt="Até 55% de desconto em mouses"
+            className="hidden md:block md:w-[48%] lg:w-[48%] w-full"
+          />
+          <PromoBanner
+            src={bannerFones}
+            alt="Até 20% de desconto em fones"
+            className="hidden md:block md:w-[48%] lg:w-[48%] w-full"
+          />
+        </div>
         <PromoBanner
           src={bannerMouse}
           alt="Até 55% de desconto em mouses"
-          className="hidden md:block md:w-[44%] lg:w-[45%]"
+          className="md:hidden"
         />
+
+        <div>
+          <SectionTitle>Teclados</SectionTitle>
+          <ProductList products={keyboards} />
+        </div>
+
         <PromoBanner
           src={bannerFones}
           alt="Até 20% de desconto em fones"
-          className="hidden md:block md:w-[44%] lg:w-[45%]"
+          className="hidden"
         />
-      </div>
-      <PromoBanner
-        src={bannerMouse}
-        alt="Até 55% de desconto em mouses"
-        className="md:hidden"
-      />
+        <PromoBanner
+          src={fretegratis}
+          alt="Até 20% de desconto em fones"
+          className="hidden md:block md:px-5"
+        />
 
-      <div>
-        <SectionTitle>Teclados</SectionTitle>
-        <ProductList products={keyboards} />
-      </div>
-
-      <PromoBanner
-        src={bannerFones}
-        alt="Até 20% de desconto em fones"
-        className="hidden"
-      />
-      <PromoBanner
-        src={fretegratis}
-        alt="Até 20% de desconto em fones"
-        className="hidden md:block"
-      />
-
-      <div>
-        <SectionTitle>Fones</SectionTitle>
-        <ProductList products={headphones} />
+        <div>
+          <SectionTitle>Fones</SectionTitle>
+          <ProductList products={headphones} />
+        </div>
       </div>
     </div>
   );
