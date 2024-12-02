@@ -3,7 +3,6 @@ import { ShapesIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { CategoryItem } from "./components/category-item";
 import { CategoryType } from "@/lib/utils";
-
 import { api } from "@/services/api";
 
 export function CatalogPage() {
@@ -21,8 +20,6 @@ export function CatalogPage() {
 
     getCategories();
   }, []);
-
-  console.log({ categories });
 
   return (
     <div className="flex flex-col p-5 gap-8">

@@ -8,13 +8,11 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "./carousel";
-
 interface ProductListProps {
   products: Product[];
 }
 
 export function ProductList({ products }: ProductListProps) {
-  console.log(products.length);
   return (
     <div className="flex w-full  px-5 md:gap-5 relative">
       <Carousel

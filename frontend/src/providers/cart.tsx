@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import { ProductWithTotalPrice } from "@/helpers/product";
 import { createContext, ReactNode, useEffect, useMemo, useState } from "react";
 

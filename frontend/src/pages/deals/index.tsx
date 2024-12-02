@@ -43,7 +43,7 @@ export function DealsPage() {
         {productsDiscount.map((product) => (
           <ProductItem
             key={product._id}
-            product={computeProductTotalPrice(product as any)}
+            product={computeProductTotalPrice(product as Product)}
           />
         ))}
       </div>

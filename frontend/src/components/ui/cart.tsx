@@ -1,7 +1,7 @@
 import { ShoppingCartIcon } from "lucide-react";
 import { Badge } from "./badge";
-import { CartContext } from "@/providers/cart";
-import { useContext, useState } from "react";
+import { CartContext, CartProduct } from "@/providers/cart";
+import { useContext } from "react";
 import { CartItem } from "./cart-item";
 import { computeProductTotalPrice } from "@/helpers/product";
 import { Separator } from "./separator";
@@ -61,7 +61,11 @@ export function Cart() {
               products.map((product) => (
                 <CartItem
                   key={product._id}
-                  product={computeProductTotalPrice(product as any) as any}
+                  product={
+                    computeProductTotalPrice(
+                      product as CartProduct
+                    ) as CartProduct
+                  }
                 />
               ))
             ) : (
