@@ -8,6 +8,7 @@ import { Separator } from "./separator";
 import { ScrollArea } from "./scroll-area";
 import { Button } from "./button";
 import { api } from "@/services/api";
+import { loadStripe } from "@stripe/stripe-js";
 
 export function Cart() {
   const { products, subtotal, total, totalDiscount, clearCart } =
@@ -21,13 +22,17 @@ export function Cart() {
         throw new Error("user is not logged in");
       }
 
-      const config = {
+      const checkout = await api.post("/checkout", products, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-      };
+      });
 
-      await api.post("/checkout", products, config);
+      const stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
+
+      stripe?.redirectToCheckout({
+        sessionId: checkout.data?.checkout?.id,
+      });
 
       alert("Compra finalizada com sucesso!");
 
