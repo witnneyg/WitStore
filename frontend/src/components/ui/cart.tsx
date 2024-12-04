@@ -34,8 +34,6 @@ export function Cart() {
         sessionId: checkout.data?.checkout?.id,
       });
 
-      alert("Compra finalizada com sucesso!");
-
       clearCart();
     } catch (error: any) {
       if (error.message === "user is not logged in") {
