@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
 import { api } from "@/services/api";
 import { useForm } from "react-hook-form";
+import { AxiosError } from "axios";
 
 interface FormData {
   email: string;
@@ -35,12 +36,13 @@ export function LoginPage() {
 
         navigate("/");
       }
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error: any) {
-      if (error.response && error.response.status === 400) {
-        setErrorMessage("Email ou senha incorretos.");
-      } else {
-        setErrorMessage("Ocorreu um erro ao tentar logar o usuário.");
+    } catch (error: unknown) {
+      if (error instanceof AxiosError && error.response) {
+        if (error.response && error.response.status === 400) {
+          setErrorMessage("Email ou senha incorretos.");
+        } else {
+          setErrorMessage("Ocorreu um erro ao tentar logar o usuário.");
+        }
       }
     }
   }

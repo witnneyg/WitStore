@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
 import { api } from "@/services/api";
 import { useForm } from "react-hook-form";
+import { AxiosError } from "axios";
 
 interface FormData {
   email: string;
@@ -37,12 +38,15 @@ export function RegisterPage() {
       }
 
       setErrorMessage("");
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error: any) {
-      if (error.response && error.response.status == 409) {
-        setErrorMessage("Este email já está em uso. Por favor, tente outro.");
+    } catch (error: unknown) {
+      if (error instanceof AxiosError && error.response) {
+        if (error.response.status === 409) {
+          setErrorMessage("Este email já está em uso. Por favor, tente outro.");
+        } else {
+          setErrorMessage("Ocorreu um erro ao tentar registrar o usuário.");
+        }
       } else {
-        setErrorMessage("Ocorreu um erro ao tentar registrar o usuário.");
+        setErrorMessage("Ocorreu um erro desconhecido.");
       }
     }
   }
