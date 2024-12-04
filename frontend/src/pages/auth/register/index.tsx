@@ -2,7 +2,6 @@ import { useCallback, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
 import { api } from "@/services/api";
-import { error } from "console";
 import { useForm } from "react-hook-form";
 
 interface FormData {
