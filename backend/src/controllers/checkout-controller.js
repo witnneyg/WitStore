@@ -6,7 +6,7 @@ const router = Router();
 router.post("/", async (req, res) => {
   const products = req.body;
 
-  const stripe = new Stripe(process.env.STRIP_SECRET_KEY, {
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
     apiVersion: "2024-11-20.acacia",
   });
 
@@ -31,7 +31,7 @@ router.post("/", async (req, res) => {
     }),
   });
 
-  console.log(checkout);
+  // console.log(checkout);
 
   try {
     res.status(200).send({ checkout });
