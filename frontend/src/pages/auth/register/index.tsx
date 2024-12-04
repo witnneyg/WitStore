@@ -37,6 +37,7 @@ export function RegisterPage() {
       }
 
       setErrorMessage("");
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       if (error.response && error.response.status == 409) {
         setErrorMessage("Este email já está em uso. Por favor, tente outro.");

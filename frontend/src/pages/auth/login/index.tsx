@@ -35,6 +35,7 @@ export function LoginPage() {
 
         navigate("/");
       }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       if (error.response && error.response.status === 400) {
         setErrorMessage("Email ou senha incorretos.");
