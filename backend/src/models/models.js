@@ -61,3 +61,62 @@ ProductSchema.methods.toJSON = function () {
 
 export const Product =
   mongoose.models.Product || mongoose.model("Product", ProductSchema);
+
+const OrderStatus = {
+  WAITING_FOR_PAYMENT: "waiting_for_payment",
+  PAYMENT_CONFIRMED: "payment_confirmed",
+};
+
+const OrderSchema = new mongoose.Schema(
+  {
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+    orderProducts: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "OrderProduct",
+      },
+    ],
+    status: {
+      type: String,
+      enum: Object.values(OrderStatus),
+      default: OrderStatus.WAITING_FOR_PAYMENT,
+    },
+  },
+  { timestamps: true }
+);
+
+export const Order =
+  mongoose.models.Order || mongoose.model("Order", OrderSchema);
+
+const OrderProductSchema = new mongoose.Schema(
+  {
+    productId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Product",
+    },
+    orderId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Order",
+    },
+    basePrice: {
+      type: mongoose.Types.Decimal128,
+      required: true,
+    },
+    discountPercentage: {
+      type: Number,
+      default: 0,
+    },
+    quantity: {
+      type: Number,
+      required: true,
+    },
+  },
+  { timestamps: true }
+);
+
+export const OrderProduct =
+  mongoose.models.OrderProduct ||
+  mongoose.model("OrderProduct", OrderProductSchema);
