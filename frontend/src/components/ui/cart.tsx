@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ShoppingCartIcon } from "lucide-react";
 import { Badge } from "./badge";
-import { CartContext, CartProduct } from "@/providers/cart";
+import { CartContext, CartProduct } from "@/context/cart-context";
 import { useContext } from "react";
 import { CartItem } from "./cart-item";
 import { computeProductTotalPrice } from "@/helpers/product";
@@ -9,10 +10,13 @@ import { ScrollArea } from "./scroll-area";
 import { Button } from "./button";
 import { api } from "@/services/api";
 import { loadStripe } from "@stripe/stripe-js";
+import { UserContext } from "@/context/user-context";
 
 export function Cart() {
   const { products, subtotal, total, totalDiscount, clearCart } =
     useContext(CartContext);
+
+  const { user } = useContext(UserContext);
 
   async function handleCheckout() {
     try {
@@ -21,6 +25,30 @@ export function Cart() {
       if (!token) {
         throw new Error("user is not logged in");
       }
+
+      if (!user) {
+        return;
+      }
+
+      const cartProducts = products.map((product) => ({
+        id: product._id,
+        basePrice: product.basePrice,
+        discountPercentage: product.discountPercentage,
+        quantity: product.quantity,
+      }));
+
+      await api.post(
+        "/order/createOrder",
+        {
+          cartProduct: cartProducts,
+          userId: user._id,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       const checkout = await api.post("/checkout", products, {
         headers: {
