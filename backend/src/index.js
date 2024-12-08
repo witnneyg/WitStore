@@ -8,6 +8,7 @@ import loginUser from "./controllers/login-controller.js";
 import checkout from "./controllers/checkout-controller.js";
 import { authMiddleware } from "./middleware/authenticate-middleware.js";
 import payment_success from "./controllers/order-payment-success.js";
+import order from "./controllers/order-controller.js";
 
 config();
 
@@ -29,6 +30,7 @@ app.use("/products", getProduct);
 app.use("/auth", registerUser);
 app.use("/auth", loginUser);
 app.use("/checkout", authMiddleware, checkout);
+app.use("/order", order);
 
 app.use(
   "/api/order/payment-success",

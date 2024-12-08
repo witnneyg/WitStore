@@ -63,8 +63,8 @@ export const Product =
   mongoose.models.Product || mongoose.model("Product", ProductSchema);
 
 const OrderStatus = {
-  WAITING_FOR_PAYMENT: "waiting_for_payment",
-  PAYMENT_CONFIRMED: "payment_confirmed",
+  WAITING_FOR_PAYMENT: "WAITING_FOR_PAYMENT",
+  PAYMENT_CONFIRMED: "PAYMENT_CONFIRMED",
 };
 
 const OrderSchema = new mongoose.Schema(
