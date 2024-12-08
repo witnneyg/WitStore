@@ -1,5 +1,5 @@
 import { computeProductTotalPrice } from "@/helpers/product";
-import { CartProduct } from "@/providers/cart";
+import { CartProduct } from "@/context/cart-context";
 
 // fix interfaces types later...
 

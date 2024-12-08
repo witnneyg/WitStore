@@ -1,4 +1,4 @@
-import { CartContext, CartProduct } from "@/providers/cart";
+import { CartContext, CartProduct } from "@/context/cart-context";
 import { Button } from "./button";
 import { ArrowLeftIcon, ArrowRightIcon, TrashIcon } from "lucide-react";
 import { useContext } from "react";

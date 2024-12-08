@@ -6,7 +6,7 @@ import {
 } from "@/components/ui/accordion";
 import { Card } from "@/components/ui/card";
 import { format } from "date-fns";
-import { CartProduct } from "@/providers/cart";
+import { CartProduct } from "@/context/cart-context";
 import { OrderProductItem } from "./order-product-item";
 import { Separator } from "@/components/ui/separator";
 import { useMemo } from "react";

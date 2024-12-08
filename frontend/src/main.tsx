@@ -7,13 +7,14 @@ import { CatalogPage } from "./pages/catalog/index.tsx";
 import { CategoryProducts } from "./pages/category-products/index.tsx";
 import { ProductDetailsPage } from "./pages/product/index.tsx";
 import { OrdersPage } from "./pages/orders/index.tsx";
-import { CartProvider } from "./providers/cart.tsx";
+import { CartProvider } from "./context/cart-context.tsx";
 import { DealsPage } from "./pages/deals/index.tsx";
 
 import "@/styles/globals.css";
 import { LoginLayout } from "./layouts/loginLayout.tsx";
 import { LoginPage } from "./pages/auth/login/index.tsx";
 import { RegisterPage } from "./pages/auth/register/index.tsx";
+import { UserProvider } from "./context/user-context.tsx";
 
 const router = createBrowserRouter([
   {
@@ -64,8 +65,10 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <CartProvider>
-      <RouterProvider router={router} />
-    </CartProvider>
+    <UserProvider>
+      <CartProvider>
+        <RouterProvider router={router} />
+      </CartProvider>
+    </UserProvider>
   </React.StrictMode>
 );
