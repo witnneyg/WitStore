@@ -5,9 +5,9 @@ const router = Router();
 
 router.post("/createOrder", async (req, res) => {
   try {
-    const { cartProduct, user } = req.body;
+    const { cartProduct, userId } = req.body;
 
-    const order = await createOrder(cartProduct, user);
+    const order = await createOrder(cartProduct, userId);
 
     res.status(201).send(order);
   } catch (error) {

@@ -1,8 +1,7 @@
 import { databaseConnection } from "../lib/database.js";
 import { Order, OrderProduct } from "../models/models.js";
-import mongoose from "mongoose";
 
-export async function createOrder(cartProduct, user) {
+export async function createOrder(cartProduct, userId) {
   await databaseConnection();
 
   try {
@@ -16,7 +15,7 @@ export async function createOrder(cartProduct, user) {
     );
 
     const order = await Order.create({
-      userId: user.id,
+      userId,
       status: "WAITING_FOR_PAYMENT",
       orderProducts: orderProducts.map((op) => op._id),
     });
