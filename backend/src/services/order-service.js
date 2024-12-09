@@ -25,3 +25,15 @@ export async function createOrder(cartProduct, userId) {
     throw new Error("Error ao criar pedido: " + error.message);
   }
 }
+
+export async function updateStatusOrder(orderId) {
+  await Order.findByIdAndUpdate(
+    orderId,
+    {
+      status: "PAYMENT_CONFIRMED",
+    },
+    {
+      new: true,
+    }
+  );
+}

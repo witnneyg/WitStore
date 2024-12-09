@@ -4,7 +4,7 @@ import Stripe from "stripe";
 const router = Router();
 
 router.post("/", async (req, res) => {
-  const products = req.body;
+  const { products, orderId } = req.body;
 
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
     apiVersion: "2024-11-20.acacia",
@@ -15,6 +15,9 @@ router.post("/", async (req, res) => {
     mode: "payment",
     success_url: "http://localhost:5173",
     cancel_url: "http://localhost:5173",
+    metadata: {
+      orderId,
+    },
     line_items: products.map((product) => {
       return {
         price_data: {
@@ -30,8 +33,6 @@ router.post("/", async (req, res) => {
       };
     }),
   });
-
-  // console.log(checkout);
 
   try {
     res.status(200).send({ checkout });

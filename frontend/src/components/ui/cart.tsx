@@ -37,7 +37,7 @@ export function Cart() {
         quantity: product.quantity,
       }));
 
-      await api.post(
+      const { data } = await api.post(
         "/order/createOrder",
         {
           cartProduct: cartProducts,
@@ -50,11 +50,18 @@ export function Cart() {
         }
       );
 
-      const checkout = await api.post("/checkout", products, {
-        headers: {
-          Authorization: `Bearer ${token}`,
+      const checkout = await api.post(
+        "/checkout",
+        {
+          products,
+          orderId: data.order._id,
         },
-      });
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       const stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
 

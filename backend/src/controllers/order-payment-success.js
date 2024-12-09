@@ -2,6 +2,7 @@ import { config } from "dotenv";
 import { Router } from "express";
 import express from "express";
 import Stripe from "stripe";
+import { updateStatusOrder } from "../services/order-service.js";
 
 config();
 const router = Router();
@@ -24,6 +25,8 @@ router.post(
       );
 
       if (event.type === "checkout.session.completed") {
+        const session = event.data.object;
+
         const sessionWithLineItems = await stripe.checkout.sessions.retrieve(
           event.data.object.id,
           {
@@ -33,7 +36,7 @@ router.post(
 
         const lineItems = sessionWithLineItems.line_items;
 
-        //criar pedido
+        await updateStatusOrder(session.metadata.orderId);
       }
 
       res.status(200).json({ received: true });
