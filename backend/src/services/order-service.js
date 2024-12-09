@@ -37,3 +37,7 @@ export async function updateStatusOrder(orderId) {
     }
   );
 }
+
+export async function getOrderByUserId(userId) {
+  return await Order.find({ userId }).populate("orderProducts");
+}
