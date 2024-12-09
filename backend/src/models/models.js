@@ -117,6 +117,18 @@ const OrderProductSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+OrderProductSchema.methods.toJSON = function () {
+  const orderProduct = this.toObject();
+  try {
+    if (orderProduct.basePrice) {
+      orderProduct.basePrice = parseFloat(orderProduct.basePrice.toString());
+    }
+  } catch (error) {
+    console.error(error);
+  }
+  return orderProduct;
+};
+
 export const OrderProduct =
   mongoose.models.OrderProduct ||
   mongoose.model("OrderProduct", OrderProductSchema);
