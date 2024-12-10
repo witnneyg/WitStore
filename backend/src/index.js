@@ -45,3 +45,5 @@ app.use("/api/order/payment-success", payment_success);
 app.listen(port, () => {
   console.log(`Rodando na porta ${port}!`);
 });
+
+export default app;
