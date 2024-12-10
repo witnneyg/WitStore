@@ -13,7 +13,7 @@ import order from "./controllers/order-controller.js";
 config();
 
 const app = express();
-const port = 8888;
+const port = process.env.PORT || 8888;
 
 app.use(
   cors({
