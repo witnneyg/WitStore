@@ -6,21 +6,12 @@ import {
 } from "@/components/ui/accordion";
 import { Card } from "@/components/ui/card";
 import { format } from "date-fns";
-import { CartProduct } from "@/context/cart-context";
 import { OrderProductItem } from "./order-product-item";
 import { Separator } from "@/components/ui/separator";
 import { useMemo } from "react";
 import { computeProductTotalPrice } from "@/helpers/product";
 import { getOrderStatus } from "../helpers/status";
-
-interface Order {
-  status: string;
-  _id: string;
-  createdAt: Date;
-  updateAd: Date;
-  userId: string;
-  orderProducts: CartProduct[]; // fix orderProducts type...
-}
+import { Order } from "..";
 
 interface OrderItemProps {
   order: Order;

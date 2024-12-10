@@ -1,10 +1,8 @@
 import { computeProductTotalPrice } from "@/helpers/product";
-import { CartProduct } from "@/context/cart-context";
-
-// fix interfaces types later...
+import { OrderProducts } from "..";
 
 interface OrderProductItemProps {
-  orderProduct: CartProduct;
+  orderProduct: OrderProducts;
 }
 
 export function OrderProductItem({ orderProduct }: OrderProductItemProps) {
@@ -14,8 +12,8 @@ export function OrderProductItem({ orderProduct }: OrderProductItemProps) {
     <div className="flex items-center gap-4">
       <div className="bg-accent rounded-lg w-[100px] h-[77px] flex items-center justify-center">
         <img
-          src={orderProduct.imageUrls[0]}
-          alt={orderProduct.name}
+          src={orderProduct.productId.imageUrls[0]}
+          alt={orderProduct.productId.name}
           className="h-auto max-h-[80%] w-auto max-w-[80%] object-contain"
         />
       </div>
@@ -27,7 +25,7 @@ export function OrderProductItem({ orderProduct }: OrderProductItemProps) {
           </p>
         </div>
 
-        <p className="text-xs">{orderProduct.name}</p>
+        <p className="text-xs">{orderProduct.productId.name}</p>
 
         <div className="flex items-center justify-between gap-1 w-full">
           <div className="flex items-center gap-1">
