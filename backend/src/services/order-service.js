@@ -41,5 +41,11 @@ export async function updateStatusOrder(orderId) {
 export async function getOrderByUserId(userId) {
   return await Order.find({ userId })
     .sort({ createdAt: -1 })
-    .populate("orderProducts");
+    .populate({
+      path: "orderProducts",
+      populate: {
+        path: "productId",
+        select: "name description imageUrls",
+      },
+    });
 }
