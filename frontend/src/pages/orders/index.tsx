@@ -40,7 +40,6 @@ export function OrdersPage() {
         });
 
         setOrder(res.data);
-        console.log(res.data);
       } catch (error) {
         console.log(error);
       }
@@ -63,31 +62,6 @@ export function OrdersPage() {
           <OrderItem key={order._id} order={order} />
         ))}
       </div>
-      Em desenvolvimento...
     </div>
   );
 }
-
-// const orders = [
-//   {
-//     status: "WAITING_FOR_PAYMENT",
-//     _id: "1",
-//     createdAt: new Date(),
-//     updateAd: new Date(),
-//     userId: "userId",
-//     orderProducts: [
-//       {
-//         _id: "1",
-//         name: "Logitech MX Master 3s",
-//         slug: "logitech-mx-master-3s",
-//         description:
-//           "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent id malesuada elit, eget vulputate justo. Sed sollicitudin velit dolor, ut gravida odio iaculis a.\nNulla risus justo, tempor eu felis eu, efficitur pulvinar risus. Sed viverra, nisi id egestas convallis, massa lorem convallis magna, vel convallis mi turpis nec ante. Maecenas posuere lacus id gravida dignissim. Morbi sit amet rutrum ex. Duis sit amet sem orci. Morbi non nisl sed mauris mattis ullamcorper quis eget metus.\nUt pellentesque ornare erat, vitae blandit ex pulvinar sit amet. Ut pellentesque lorem at eros vestibulum lobortis. Proin bibendum est facilisis nulla tristique vestibulum. Etiam placerat tortor sit amet lacinia volutpat. Curabitur lectus turpis, faucibus vitae tortor in, lacinia tristique neque.",
-//         imageUrls: [mouseImg, mouseImg, mouseImg, mouseImg],
-//         categoryId: "",
-//         basePrice: 500,
-//         discountPercentage: 10,
-//         totalPrice: 1100,
-//         quantity: 1,
-//       },
-//     ],
-//   },
