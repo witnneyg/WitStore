@@ -17,7 +17,7 @@ const port = 8888;
 
 app.use(
   cors({
-    origin: "https://wit-store-fe.vercel.app/",
+    origin: "https://wit-store.vercel.app/",
   })
 );
 
