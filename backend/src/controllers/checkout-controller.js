@@ -13,8 +13,8 @@ router.post("/", async (req, res) => {
   const checkout = await stripe.checkout.sessions.create({
     payment_method_types: ["card"],
     mode: "payment",
-    success_url: "http://localhost:5173",
-    cancel_url: "http://localhost:5173",
+    success_url: process.env.HOST_URL,
+    cancel_url: process.env.HOST_URL,
     metadata: {
       orderId,
     },
