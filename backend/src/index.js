@@ -15,7 +15,11 @@ config();
 const app = express();
 const port = 8888;
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://wit-store-fe.vercel.app/",
+  })
+);
 
 app.use((req, res, next) => {
   if (req.originalUrl === "/api/order/payment-success") {
