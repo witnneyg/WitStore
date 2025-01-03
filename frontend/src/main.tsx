@@ -15,6 +15,7 @@ import { LoginLayout } from "./layouts/loginLayout.tsx";
 import { LoginPage } from "./pages/auth/login/index.tsx";
 import { RegisterPage } from "./pages/auth/register/index.tsx";
 import { UserProvider } from "./context/user-context.tsx";
+import { DashBoard } from "./pages/admin/DashBoard.tsx";
 
 const router = createBrowserRouter([
   {
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
       {
         path: "/orders",
         element: <OrdersPage />,
+      },
+      {
+        path: "/admin/dashboard",
+        element: <DashBoard />,
       },
     ],
   },
