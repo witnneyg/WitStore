@@ -36,7 +36,7 @@ export function Header() {
   }
 
   return (
-    <Card className="flex justify-between items-center p-[1.875rem]  ">
+    <Card className="flex justify-between items-center p-[1.875rem]">
       <div className="sm:hidden">
         <Sheet>
           <SheetTrigger asChild>
@@ -134,14 +134,14 @@ export function Header() {
         </h1>
       </Link>
 
-      <div className="sm:flex items-center gap-6 font-semibold hidden ml-16">
+      <div className="text-sm  md:text-base sm:flex items-center gap-6 font-semibold hidden ml-2 md:ml-16">
         <Link to="/">Início</Link>
         <Link to="/catalog" className="border-x-2 border-x-zinc-800 px-4">
           Catálogo
         </Link>
         <Link to="/deals">Ofertas</Link>
         <Link to="/orders" className="border-l-2 border-l-zinc-800 px-4">
-          Meus Pedidos
+          Pedidos
         </Link>
       </div>
 
