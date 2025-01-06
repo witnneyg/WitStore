@@ -140,6 +140,9 @@ export function Header() {
           Catálogo
         </Link>
         <Link to="/deals">Ofertas</Link>
+        <Link to="/orders" className="border-l-2 border-l-zinc-800 px-4">
+          Meus Pedidos
+        </Link>
       </div>
 
       <div className="items-center gap-1 flex">
