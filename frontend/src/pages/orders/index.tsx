@@ -58,9 +58,11 @@ export function OrdersPage() {
         Meus Pedidos
       </Badge>
       <div className="flex flex-col gap-5 mt-5">
-        {orders.map((order) => (
-          <OrderItem key={order._id} order={order} />
-        ))}
+        {orders.length == 0 ? (
+          <p>Não possui nenhum pedido</p>
+        ) : (
+          orders.map((order) => <OrderItem key={order._id} order={order} />)
+        )}
       </div>
     </div>
   );
