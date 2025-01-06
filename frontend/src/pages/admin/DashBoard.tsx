@@ -37,7 +37,7 @@ export function DashBoard() {
 
   return (
     <div className="flex h-full">
-      <main className="flex flex-col flex-1 p-3">
+      <main className="flex flex-col flex-1 ">
         <Card className="flex-1 overflow-x-hidden overflow-y-auto custom-scroll">
           <div className="mt-3 mx-5">
             <span className=" text-lg">Todos os produtos</span>
