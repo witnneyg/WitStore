@@ -16,6 +16,8 @@ import { LoginPage } from "./pages/auth/login/index.tsx";
 import { RegisterPage } from "./pages/auth/register/index.tsx";
 import { UserProvider } from "./context/user-context.tsx";
 import { DashBoard } from "./pages/admin/DashBoard.tsx";
+import { AdminProducts } from "./pages/admin/AdminProducts.tsx";
+import { AdminPage } from "./pages/admin/Admin.tsx";
 
 const router = createBrowserRouter([
   {
@@ -46,10 +48,6 @@ const router = createBrowserRouter([
         path: "/orders",
         element: <OrdersPage />,
       },
-      {
-        path: "/admin/dashboard",
-        element: <DashBoard />,
-      },
     ],
   },
   {
@@ -65,6 +63,24 @@ const router = createBrowserRouter([
         element: <RegisterPage />,
       },
     ],
+  },
+  {
+    path: "/admin",
+    element: <AdminPage />,
+    children: [
+      {
+        path: "dashboard",
+        element: <DashBoard />,
+      },
+      {
+        path: "products",
+        element: <AdminProducts />,
+      },
+    ],
+  },
+  {
+    path: "/admin/products",
+    element: <AdminProducts />,
   },
 ]);
 
