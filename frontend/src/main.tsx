@@ -18,6 +18,8 @@ import { UserProvider } from "./context/user-context.tsx";
 import { DashBoard } from "./pages/admin/DashBoard.tsx";
 import { AdminPage } from "./pages/admin/Admin.tsx";
 import { Products } from "./pages/admin/Products.tsx";
+import { ProtectedRoute } from "./pages/admin/components/protectedRoute.tsx";
+import { NoPermissionPage } from "./pages/admin/noPermissionPage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -66,7 +68,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/admin",
-    element: <AdminPage />,
+    element: (
+      <ProtectedRoute>
+        <AdminPage />,
+      </ProtectedRoute>
+    ),
     children: [
       {
         path: "dashboard",
@@ -77,6 +83,10 @@ const router = createBrowserRouter([
         element: <Products />,
       },
     ],
+  },
+  {
+    path: "/access-denied",
+    element: <NoPermissionPage />,
   },
 ]);
 

@@ -1,6 +1,7 @@
 import {
   HomeIcon,
   ListOrderedIcon,
+  Lock,
   LogInIcon,
   LogOut,
   MenuIcon,
@@ -19,25 +20,20 @@ import {
 import { PercentIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Cart } from "./cart";
-import { useEffect, useState } from "react";
+import { useContext } from "react";
+import { UserContext } from "@/context/user-context";
 
 export function Header() {
-  const [userIsLoggin, setUserIsLoggin] = useState(Boolean);
-
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-
-    setUserIsLoggin(!!token);
-  }, []);
+  const { user, setUser } = useContext(UserContext);
 
   function handleLogout() {
     localStorage.removeItem("token");
-    setUserIsLoggin(false);
+    setUser(undefined);
   }
 
   return (
     <Card className="flex justify-between items-center p-[1.875rem]">
-      <div className="sm:hidden">
+      <div className="md:hidden">
         <Sheet>
           <SheetTrigger asChild>
             <Button size="icon" variant="outline">
@@ -88,7 +84,7 @@ export function Header() {
               </SheetClose>
 
               <SheetClose asChild>
-                <Link to={`/catalog`}>
+                <Link to="/catalog">
                   <Button
                     variant="outline"
                     className="w-full justify-start gap-2"
@@ -100,7 +96,23 @@ export function Header() {
               </SheetClose>
 
               <SheetClose asChild>
-                {userIsLoggin ? (
+                <Link to="/admin">
+                  {user?.role == "admin" && (
+                    <Link to="/admin">
+                      <Button
+                        variant="outline"
+                        className="w-full justify-start gap-2"
+                      >
+                        <Lock size={16} />
+                        Admin
+                      </Button>
+                    </Link>
+                  )}
+                </Link>
+              </SheetClose>
+
+              <SheetClose asChild>
+                {user ? (
                   <Link to="/">
                     <Button
                       variant="outline"
@@ -134,20 +146,25 @@ export function Header() {
         </h1>
       </Link>
 
-      <div className="text-sm  md:text-base sm:flex items-center gap-6 font-semibold hidden ml-2 md:ml-16">
+      <div className="hidden text-sm  md:text-base md:flex items-center gap-3 lg:gap-7 font-semibold  ml-2 md:ml-16">
         <Link to="/">Início</Link>
         <Link to="/catalog" className="border-x-2 border-x-zinc-800 px-4">
           Catálogo
         </Link>
         <Link to="/deals">Ofertas</Link>
-        <Link to="/orders" className="border-l-2 border-l-zinc-800 px-4">
+        <Link to="/orders" className="border-l-2 border-l-zinc-800 pl-6">
           Pedidos
         </Link>
+        {user?.role == "admin" && (
+          <Link to="/admin" className="border-l-2 border-l-zinc-800 px-4">
+            Admin
+          </Link>
+        )}
       </div>
 
       <div className="items-center gap-1 flex">
         <div className="hidden sm:flex">
-          {userIsLoggin ? (
+          {user ? (
             <Link to="/">
               <Button
                 size="icon"

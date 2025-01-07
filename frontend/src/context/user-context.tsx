@@ -6,6 +6,7 @@ export interface CustomJwtPayload extends JwtPayload {
   email: string;
   name: string;
   _id: string;
+  role: string;
 }
 
 interface UserContextProps {
@@ -20,6 +21,8 @@ export const UserContext = createContext<UserContextProps>({
 
 export function UserProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<CustomJwtPayload | undefined>(undefined);
+
+  console.log(user);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
