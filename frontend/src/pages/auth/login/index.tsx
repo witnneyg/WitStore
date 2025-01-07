@@ -1,9 +1,11 @@
-import { useCallback, useState } from "react";
+import { useCallback, useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
 import { api } from "@/services/api";
 import { useForm } from "react-hook-form";
 import { AxiosError } from "axios";
+import { CustomJwtPayload, UserContext } from "@/context/user-context";
+import { jwtDecode } from "jwt-decode";
 
 interface FormData {
   email: string;
@@ -13,6 +15,7 @@ interface FormData {
 export function LoginPage() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState(false);
+  const { setUser } = useContext(UserContext);
 
   const navigate = useNavigate();
 
@@ -33,6 +36,9 @@ export function LoginPage() {
       if (response.status === 201) {
         const token = response.data.token;
         localStorage.setItem("token", token);
+
+        const decoded = jwtDecode<CustomJwtPayload>(token);
+        setUser(decoded);
 
         navigate("/");
       }
