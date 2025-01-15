@@ -1,4 +1,5 @@
 import { databaseConnection } from "../lib/database.js";
+import { Product } from "../models/models.js";
 
 export async function UpdatedProductById(productId, name, basePrice) {
   await databaseConnection();
