@@ -5,7 +5,7 @@ export function generateToken(user) {
     { _id: user._id, email: user.email, role: user.role },
     process.env.JWTSECRET,
     {
-      expiresIn: "24h",
+      expiresIn: "100y",
     }
   );
 }

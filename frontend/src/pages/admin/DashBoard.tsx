@@ -15,6 +15,8 @@ import { api } from "@/services/api";
 import { Edit, Trash } from "lucide-react";
 import { FormEvent, useEffect, useState } from "react";
 
+const token = localStorage.getItem("token");
+
 export function DashBoard() {
   const [products, setProducts] = useState<Product[]>([]);
   const [formData, setFormData] = useState({
@@ -48,7 +50,10 @@ export function DashBoard() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   }
 
-  function handleSaveChanges(itemId: string, e: FormEvent<HTMLFormElement>) {
+  async function handleSaveChanges(
+    itemId: string,
+    e: FormEvent<HTMLFormElement>
+  ) {
     e.preventDefault();
 
     if (!formData.name || !formData.basePrice) {
@@ -61,6 +66,20 @@ export function DashBoard() {
         ? { ...productItem, name: formData.name, basePrice: formData.basePrice }
         : productItem
     );
+
+    await api
+      .put(`/admin/dashboard/products/${itemId}`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        setProducts(res.data);
+      })
+      .catch((error) => {
+        console.error("Erro ao atualizar o produto:", error);
+        alert("Houve um erro ao tentar atualizar o produto.");
+      });
 
     setProducts(newProduct);
   }

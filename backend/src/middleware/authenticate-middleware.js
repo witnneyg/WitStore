@@ -9,8 +9,8 @@ export function authMiddleware(req, res, next) {
 
   const [schema, token] = authHeader.split(" ");
 
-  if (schema.indexOf("Bearer") !== 0) {
-    return res.status(401).send({ error: "Token malformatted" });
+  if (!token || schema !== "Bearer") {
+    return res.status(401).send({ error: "Token malformatted or missing" });
   }
 
   try {
