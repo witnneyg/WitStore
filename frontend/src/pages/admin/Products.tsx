@@ -1,19 +1,24 @@
 import { Card } from "@/components/ui/card";
+import { api } from "@/services/api";
 import { FormEvent, useState } from "react";
 
 type ProductDataType = {
   name: string;
   category: string;
-  price: string;
-  productImage: File | null;
+  basePrice: string;
+  description: string;
+  imageUrls: File | null;
 };
+
+const token = localStorage.getItem("token");
 
 export function Products() {
   const [productData, setProductData] = useState<ProductDataType>({
     name: "",
     category: "",
-    price: "",
-    productImage: null,
+    basePrice: "",
+    description: "",
+    imageUrls: null,
   });
   const [error, setError] = useState("");
   const [preview, setPreview] = useState<string | null>(null);
@@ -22,10 +27,10 @@ export function Products() {
   function handleProductChange(e: React.ChangeEvent<HTMLInputElement>) {
     const { name, value, files } = e.target;
 
-    if (name === "productImage" && files) {
+    if (name === "imageUrls" && files) {
       const file = files[0];
       setSelectedImage(file);
-      setProductData((prev) => ({ ...prev, productImage: file }));
+      setProductData((prev) => ({ ...prev, imageUrls: file }));
 
       const reader = new FileReader();
       reader.onloadend = () => {
@@ -35,14 +40,15 @@ export function Products() {
     } else {
       setProductData((prev) => ({ ...prev, [name]: value }));
     }
+
     setError("");
   }
 
-  function handleSaveProduct(e: FormEvent) {
+  async function handleSaveProduct(e: FormEvent) {
     e.preventDefault();
 
-    const { name, category, price, productImage } = productData;
-    const numberPrice = Number(price);
+    const { name, category, basePrice, imageUrls, description } = productData;
+    const numberPrice = Number(basePrice);
 
     if (!name.trim()) {
       return setError("O nome do produto é obrigatório.");
@@ -52,13 +58,44 @@ export function Products() {
       return setError("A categoria do produto é obrigatória.");
     }
 
-    if (!price || numberPrice <= 0) {
+    if (!description.trim()) {
+      return setError("A descrição do produto é obrigatória.");
+    }
+
+    if (!basePrice || numberPrice <= 0) {
       return setError("O preço do produto deve ser maior que 0.");
     }
 
-    if (!productImage) {
+    if (!imageUrls) {
       return setError("A imagem do produto é obrigatória");
     }
+
+    const data = new FormData();
+    data.append("name", productData.name);
+    data.append("description", productData.description);
+    data.append("basePrice", productData.basePrice);
+    data.append("category", productData.category);
+    if (productData.imageUrls) data.append("image", productData.imageUrls);
+
+    try {
+      const response = await api.post("/admin/dashboard/createProduct", data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+    setProductData({
+      name: "",
+      basePrice: "",
+      category: "",
+      description: "",
+      imageUrls: null,
+    });
+    setPreview(null);
   }
 
   return (
@@ -66,30 +103,29 @@ export function Products() {
       <Card className="flex flex-col gap-2 w-[25rem] px-6 py-4 shadow-lg rounded-lg">
         <form onSubmit={handleSaveProduct}>
           <div className="flex flex-col gap-3 text-center mt-2">
-            {preview && (
-              <img
-                src={`${preview || "https://static.skillshare.com/uploads/project/84630/cover_full_22304c1e904979a9dbc8bd4c3b1b5825.jpg"}`}
-                alt="Pré-visualização"
-                className="w-full h-28 md:h-44 object-cover rounded-md "
-              />
-            )}
+            <img
+              src={
+                preview ||
+                "https://static.skillshare.com/uploads/project/84630/cover_full_22304c1e904979a9dbc8bd4c3b1b5825.jpg"
+              }
+              alt="Pré-visualização"
+              className="w-full h-28 md:h-44 object-cover rounded-md"
+            />
 
             <input
               type="file"
               placeholder="test"
               accept="image/*"
-              name="productImage"
+              name="imageUrls"
               onChange={handleProductChange}
               className=" bg-blue-600 text-white px-3 py-2 rounded-md  hover:bg-blue-700 transition "
             />
-
-            <span className="block mt-1 text-gray-400 text-sm">Imagem 4mb</span>
           </div>
 
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-1 mt-2">
             <label
               htmlFor="name"
-              className="text-sm font-medium  text-gray-300"
+              className="text-sm font-medium  text-gray-300 mt-2"
             >
               Nome do Produto
             </label>
@@ -103,10 +139,10 @@ export function Products() {
             />
           </div>
 
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-1">
             <label
               htmlFor="category"
-              className="text-sm font-medium  text-gray-300"
+              className="text-sm font-medium  text-gray-300 mt-2"
             >
               Nome da Categoria
             </label>
@@ -120,20 +156,37 @@ export function Products() {
             />
           </div>
 
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-1">
             <label
-              htmlFor="price"
-              className="text-sm font-medium  text-gray-300"
+              htmlFor="basePrice"
+              className="text-sm font-medium  text-gray-300 mt-2"
             >
               Preço do Produto
             </label>
             <input
               type="number"
-              name="price"
+              name="basePrice"
               placeholder="Digite o preço do produto"
               step={0.01}
               min={1}
-              value={productData.price}
+              value={productData.basePrice}
+              onChange={handleProductChange}
+              className="border  border-gray-950 rounded-md p-2 text-sm  bg-[#171718] text-gray-100 focus:outline-none focus:ring-2  focus:ring-blue-400"
+            />
+          </div>
+
+          <div className="flex flex-col gap-1">
+            <label
+              htmlFor="category"
+              className="text-sm font-medium  text-gray-300 mt-2"
+            >
+              Descrição do produto
+            </label>
+            <input
+              type="text"
+              name="description"
+              placeholder="Digite a descrição do produto"
+              value={productData.description}
               onChange={handleProductChange}
               className="border  border-gray-950 rounded-md p-2 text-sm  bg-[#171718] text-gray-100 focus:outline-none focus:ring-2  focus:ring-blue-400"
             />
