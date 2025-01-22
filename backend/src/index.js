@@ -1,8 +1,8 @@
 import express from "express";
 import cors from "cors";
 import { config } from "dotenv";
-import getCategory from "./controllers/category.js";
-import getProduct from "./controllers/product.js";
+import categories from "./controllers/category.js";
+import products from "./controllers/product.js";
 import registerUser from "./controllers/register-controller.js";
 import loginUser from "./controllers/login-controller.js";
 import checkout from "./controllers/checkout-controller.js";
@@ -32,8 +32,8 @@ app.use((req, res, next) => {
     express.json()(req, res, next);
   }
 });
-app.use("/categories", getCategory);
-app.use("/products", getProduct);
+app.use("/categories", categories);
+app.use("/products", products);
 app.use("/auth", registerUser);
 app.use("/auth", loginUser);
 app.use("/checkout", authMiddleware, checkout);
