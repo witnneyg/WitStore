@@ -80,10 +80,19 @@ export function DashBoardActions({
     setProducts(newProduct);
   }
 
-  function handleDeleteChanges(itemId: string) {
-    const newProduct = products.filter((product) => product._id !== itemId);
+  async function handleDeleteChanges(itemId: string) {
+    try {
+      await api.delete(`/admin/dashboard/products/${itemId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const newProduct = products.filter((product) => product._id !== itemId);
 
-    setProducts(newProduct);
+      setProducts(newProduct);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (

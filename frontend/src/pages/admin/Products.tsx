@@ -1,10 +1,10 @@
 import { Card } from "@/components/ui/card";
 import { api } from "@/services/api";
-import { FormEvent, useState } from "react";
+import { FormEvent, useRef, useState } from "react";
 
 type ProductDataType = {
   name: string;
-  category: string;
+  categoryName: string;
   basePrice: string;
   description: string;
   imageUrls: File | null;
@@ -15,21 +15,20 @@ const token = localStorage.getItem("token");
 export function Products() {
   const [productData, setProductData] = useState<ProductDataType>({
     name: "",
-    category: "",
+    categoryName: "",
     basePrice: "",
     description: "",
     imageUrls: null,
   });
   const [error, setError] = useState("");
   const [preview, setPreview] = useState<string | null>(null);
-  const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   function handleProductChange(e: React.ChangeEvent<HTMLInputElement>) {
     const { name, value, files } = e.target;
 
     if (name === "imageUrls" && files) {
       const file = files[0];
-      setSelectedImage(file);
       setProductData((prev) => ({ ...prev, imageUrls: file }));
 
       const reader = new FileReader();
@@ -47,14 +46,15 @@ export function Products() {
   async function handleSaveProduct(e: FormEvent) {
     e.preventDefault();
 
-    const { name, category, basePrice, imageUrls, description } = productData;
+    const { name, categoryName, basePrice, imageUrls, description } =
+      productData;
     const numberPrice = Number(basePrice);
 
     if (!name.trim()) {
       return setError("O nome do produto é obrigatório.");
     }
 
-    if (!category.trim()) {
+    if (!categoryName.trim()) {
       return setError("A categoria do produto é obrigatória.");
     }
 
@@ -74,7 +74,7 @@ export function Products() {
     data.append("name", productData.name);
     data.append("description", productData.description);
     data.append("basePrice", productData.basePrice);
-    data.append("category", productData.category);
+    data.append("categoryName", productData.categoryName);
     if (productData.imageUrls) data.append("image", productData.imageUrls);
 
     try {
@@ -91,11 +91,15 @@ export function Products() {
     setProductData({
       name: "",
       basePrice: "",
-      category: "",
+      categoryName: "",
       description: "",
       imageUrls: null,
     });
     setPreview(null);
+
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
   }
 
   return (
@@ -118,6 +122,7 @@ export function Products() {
               accept="image/*"
               name="imageUrls"
               onChange={handleProductChange}
+              ref={fileInputRef}
               className=" bg-blue-600 text-white px-3 py-2 rounded-md  hover:bg-blue-700 transition "
             />
           </div>
@@ -141,16 +146,16 @@ export function Products() {
 
           <div className="flex flex-col gap-1">
             <label
-              htmlFor="category"
+              htmlFor="categoryName"
               className="text-sm font-medium  text-gray-300 mt-2"
             >
               Nome da Categoria
             </label>
             <input
               type="text"
-              name="category"
+              name="categoryName"
               placeholder="Digite o nome da categoria"
-              value={productData.category}
+              value={productData.categoryName}
               onChange={handleProductChange}
               className="border  border-gray-950 rounded-md p-2 text-sm  bg-[#171718] text-gray-100 focus:outline-none focus:ring-2  focus:ring-blue-400"
             />
