@@ -23,7 +23,7 @@ export function CategoryProducts() {
     }
 
     getProductsFromCategories();
-  }, []);
+  }, [params.slug]);
 
   if (!products) {
     return null;
