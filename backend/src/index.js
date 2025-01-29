@@ -11,6 +11,7 @@ import payment_success from "./controllers/order-payment-success.js";
 import order from "./controllers/order-controller.js";
 import dashboard from "./controllers/dashboard.js";
 import { roleMiddlware } from "./middleware/role-middleware.js";
+import path from "path";
 
 config();
 
@@ -39,6 +40,7 @@ app.use("/auth", loginUser);
 app.use("/checkout", authMiddleware, checkout);
 app.use("/order", order);
 app.use("/admin/dashboard", authMiddleware, roleMiddlware("admin"), dashboard);
+app.use("/uploads", express.static(path.resolve("uploads")));
 
 app.use(
   "/api/order/payment-success",

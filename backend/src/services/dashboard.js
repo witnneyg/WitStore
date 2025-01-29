@@ -1,43 +1,61 @@
 import { databaseConnection } from "../lib/database.js";
-import { Product } from "../models/models.js";
+import { Category, Product } from "../models/models.js";
 
-export async function UpdatedProductById(productId, name, basePrice) {
+export async function updatedProductById(productId, name, basePrice) {
   await databaseConnection();
-
-  const res = await Product.findByIdAndUpdate(
-    productId,
-    { name, basePrice },
-    { new: true }
-  );
-
-  return res;
-}
-
-export async function createProduct(
-  name,
-  category,
-  basePrice,
-  description,
-  imageUrls
-) {
-  await databaseConnection();
-
-  console.log("oi");
 
   try {
-    const newProduct = new Product({
-      name,
-      slug: category,
-      basePrice,
-      description,
-      imageUrls,
-    });
+    return await Product.findByIdAndUpdate(
+      productId,
+      { name, basePrice },
+      { new: true }
+    );
+  } catch (error) {
+    console.error("Error updating product:", error);
+    throw new Error("Internal error updating the product.");
+  }
+}
 
+export async function findCategoryByName(categoryName) {
+  await databaseConnection();
+
+  return await Category.findOne({ name: categoryName });
+}
+
+export async function createProduct(productData) {
+  await databaseConnection();
+  try {
+    const newProduct = new Product(productData);
     await newProduct.save();
 
-    return res.status(201).json(newProduct);
+    await Category.findByIdAndUpdate(productData.categoryId, {
+      $push: { products: newProduct._id },
+    });
+
+    return newProduct;
   } catch (error) {
-    console.error("Erro ao criar produto:", error);
-    return res.status(500).json({ message: "Erro ao criar o produto." });
+    console.error("Error creating product:", error);
+    throw new Error("Failed to create product.");
+  }
+}
+
+export async function deleteProductById(productId) {
+  await databaseConnection();
+
+  try {
+    const product = await Product.findById(productId);
+
+    if (!product) {
+      throw new Error("Product not found.");
+    }
+
+    await Product.findByIdAndDelete(productId);
+
+    await Category.findByIdAndUpdate(product.categoryId, {
+      $pull: { products: productId },
+    });
+  } catch (error) {
+    console.error("Error deleting product", error);
+    throw new Error("Internal error when deleting the product.");
   }
 }
