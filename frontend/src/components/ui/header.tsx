@@ -96,19 +96,17 @@ export function Header() {
               </SheetClose>
 
               <SheetClose asChild>
-                <Link to="/admin">
-                  {user?.role == "admin" && (
-                    <Link to="/admin">
-                      <Button
-                        variant="outline"
-                        className="w-full justify-start gap-2"
-                      >
-                        <Lock size={16} />
-                        Admin
-                      </Button>
-                    </Link>
-                  )}
-                </Link>
+                {user?.role == "admin" && (
+                  <Link to="/admin/dashboard">
+                    <Button
+                      variant="outline"
+                      className="w-full justify-start gap-2"
+                    >
+                      <Lock size={16} />
+                      Admin
+                    </Button>
+                  </Link>
+                )}
               </SheetClose>
 
               <SheetClose asChild>
@@ -156,7 +154,10 @@ export function Header() {
           Pedidos
         </Link>
         {user?.role == "admin" && (
-          <Link to="/admin" className="border-l-2 border-l-zinc-800 px-4">
+          <Link
+            to="/admin/dashboard"
+            className="border-l-2 border-l-zinc-800 px-4"
+          >
             Admin
           </Link>
         )}
