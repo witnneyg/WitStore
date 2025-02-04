@@ -103,7 +103,7 @@ export function Products() {
   }
 
   return (
-    <div className=" flex items-center justify-center h-[36rem] border">
+    <div className=" flex items-center justify-center h-[42rem] border">
       <Card className="flex flex-col gap-2 w-[25rem] px-6 py-4 shadow-lg rounded-lg">
         <form onSubmit={handleSaveProduct}>
           <div className="flex flex-col gap-3 text-center mt-2">

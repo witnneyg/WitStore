@@ -1,8 +1,9 @@
-import { databaseConnection } from "../lib/database.js";
-import { Category, Product } from "../models/models.js";
+import { MongoClient } from "../database/mongo.js";
+import { Category } from "../models/categorySchema.js";
+import { Product } from "../models/productSchema.js";
 
 export async function updatedProductById(productId, name, basePrice) {
-  await databaseConnection();
+  await MongoClient.connect();
 
   try {
     return await Product.findByIdAndUpdate(
@@ -17,13 +18,14 @@ export async function updatedProductById(productId, name, basePrice) {
 }
 
 export async function findCategoryByName(categoryName) {
-  await databaseConnection();
+  await MongoClient.connect();
 
   return await Category.findOne({ name: categoryName });
 }
 
 export async function createProduct(productData) {
-  await databaseConnection();
+  await MongoClient.connect();
+
   try {
     const newProduct = new Product(productData);
     await newProduct.save();
@@ -40,7 +42,7 @@ export async function createProduct(productData) {
 }
 
 export async function deleteProductById(productId) {
-  await databaseConnection();
+  await MongoClient.connect();
 
   try {
     const product = await Product.findById(productId);

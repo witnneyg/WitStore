@@ -1,12 +1,12 @@
-import { databaseConnection } from "../lib/database.js";
-import { User } from "../models/models.js";
+import { MongoClient } from "../database/mongo.js";
+import { User } from "../models/userSchema.js";
 
 export async function loginUser() {
-  databaseConnection();
+  await MongoClient.connect();
 }
 
 export async function getUser(email) {
-  databaseConnection();
+  await MongoClient.connect();
 
   const getUser = await User.findOne({ email }).select("+password");
 

@@ -7,7 +7,6 @@ import {
 } from "../services/dashboard.js";
 import multer from "multer";
 import { storage } from "../utils/multerConfig.js";
-import { Product } from "../models/models.js";
 
 const router = Router();
 const upload = multer({ storage: storage });

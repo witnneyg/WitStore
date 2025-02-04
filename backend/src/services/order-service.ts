@@ -1,8 +1,9 @@
-import { databaseConnection } from "../lib/database.js";
-import { Order, OrderProduct } from "../models/models.js";
+import { MongoClient } from "../database/mongo.js";
+import { OrderProduct } from "../models/orderProductSchema.js";
+import { Order } from "../models/orderSchema.js";
 
 export async function createOrder(cartProduct, userId) {
-  await databaseConnection();
+  await MongoClient.connect();
 
   try {
     const orderProducts = await OrderProduct.insertMany(
