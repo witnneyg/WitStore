@@ -4,7 +4,7 @@ import { config } from "dotenv";
 import categories from "./controllers/category/index.js";
 import products from "./controllers/product/index.js";
 import registerUser from "./controllers/register/index.js";
-import loginUser from "./controllers/login-controller.js";
+import userLogin from "./controllers/login/index.js";
 import checkout from "./controllers/checkout-controller.js";
 import { authMiddleware } from "./middleware/authenticate-middleware.js";
 import payment_success from "./controllers/order-payment-success.js";
@@ -48,7 +48,7 @@ const main = async () => {
   app.use("/categories", categories);
   app.use("/products", products);
   app.use("/auth", registerUser);
-  app.use("/auth", loginUser);
+  app.use("/auth", userLogin);
   app.use("/checkout", authMiddleware, checkout);
   app.use("/order", order);
   app.use(

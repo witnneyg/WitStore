@@ -11,6 +11,3 @@ export interface IGetCategoriesBySlugRepository {
 export interface IGetCategoriesByIdRepository {
   getCategoriesById(id: string): Promise<ICategory>;
 }
-// export interface IGetCategoriesController {
-//   handle(): Promise<HttpResponse<ICategory[]>>;
-// }

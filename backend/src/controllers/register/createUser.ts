@@ -13,6 +13,7 @@ export class CreateUserController implements IController {
   > {
     try {
       const body = HttpRequest.body;
+
       const user = await this.createUserRepository.createUser(body);
 
       user.password = undefined;
