@@ -1,6 +1,6 @@
 import mongoose, { Document } from "mongoose";
 
-export interface IOrder extends Document {
+export interface IOrderProduct extends Document {
   productId: mongoose.Types.ObjectId;
   orderId: mongoose.Types.ObjectId;
   basePrice: mongoose.Types.Decimal128;
@@ -8,7 +8,7 @@ export interface IOrder extends Document {
   quantity: number;
 }
 
-const OrderProductSchema = new mongoose.Schema<IOrder>(
+const OrderProductSchema = new mongoose.Schema<IOrderProduct>(
   {
     productId: {
       type: mongoose.Schema.Types.ObjectId,
@@ -48,4 +48,4 @@ OrderProductSchema.methods.toJSON = function () {
 
 export const OrderProduct =
   mongoose.models.OrderProduct ||
-  mongoose.model<IOrder>("OrderProduct", OrderProductSchema);
+  mongoose.model<IOrderProduct>("OrderProduct", OrderProductSchema);
