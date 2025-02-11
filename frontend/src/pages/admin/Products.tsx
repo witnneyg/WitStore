@@ -78,7 +78,7 @@ export function Products() {
     if (productData.imageUrls) data.append("image", productData.imageUrls);
 
     try {
-      const response = await api.post("/admin/dashboard/createProduct", data, {
+      const response = await api.post("/admin/dashboard/products", data, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,
