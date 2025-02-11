@@ -1,12 +1,13 @@
 import { ICategory } from "../../models/categorySchema.js";
 import { IProduct } from "../../models/productSchema.js";
 
-interface IUpdateProductParams {
+export interface IUpdateProductParams {
+  productId: string;
   name: string;
   basePrice: number;
 }
 
-export interface CreateProductsParams {
+export interface ProductsParams {
   name: string;
   slug: string;
   description: string;
@@ -16,14 +17,18 @@ export interface CreateProductsParams {
 }
 
 export interface ICreateProductRepository {
-  createProduct(products: CreateProductsParams): Promise<CreateProductsParams>;
+  createProduct(products: ProductsParams): Promise<ProductsParams>;
   getCategoryByName(name: string): Promise<ICategory>;
 }
 
 export interface IUpdateProductRepository {
-  updateProduct(products: IUpdateProductParams): Promise<IProduct>;
+  updateProduct({
+    productId,
+    name,
+    basePrice,
+  }: IUpdateProductParams): Promise<ProductsParams>;
 }
 
 export interface IDeleteProductRepository {
-  deleteProduct(id: string): Promise<IProduct>;
+  deleteProduct(id: string): Promise<void>;
 }

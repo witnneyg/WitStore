@@ -1,5 +1,5 @@
 import { HttpRequest, HttpResponse, IController } from "../protocols.js";
-import { CreateProductsParams, ICreateProductRepository } from "./protocols.js";
+import { ProductsParams, ICreateProductRepository } from "./protocols.js";
 
 interface RequestBody {
   name: string;
@@ -15,7 +15,7 @@ export class CreateProductController implements IController {
 
   async handle(
     httpRequest: HttpRequest<{ body: RequestBody }>
-  ): Promise<HttpResponse<CreateProductsParams | string>> {
+  ): Promise<HttpResponse<ProductsParams | string>> {
     try {
       const protocol = httpRequest.headers?.["x-forwarded-proto"] || "http";
       const host = httpRequest.headers?.host || "localhost:8888";
