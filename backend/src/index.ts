@@ -9,7 +9,7 @@ import checkout from "./controllers/checkout/index.js";
 import { authMiddleware } from "./middleware/authenticate-middleware.js";
 // import payment_success from "./controllers/order-payment-success.js";
 import order from "./controllers/order/index.js";
-import dashboard from "./controllers/dashboard.js";
+import dashboard from "./controllers/dashboard/index.js";
 import { roleMiddlware } from "./middleware/role-middleware.js";
 import path from "path";
 import { MongoClient } from "./database/mongo.js";
