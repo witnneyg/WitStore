@@ -33,49 +33,38 @@ router.put("/products/:productId", async (req, res) => {
   }
 });
 
-router.post("/createProduct", upload.single("image"), async (req, res) => {
-  try {
-    const { name, description, basePrice, categoryName } = req.body;
-
-    console.log(categoryName, "create");
-
-    if (!name || !description || !basePrice || !categoryName) {
-      return res.status(400).json({ error: "All fields are required." });
-    }
-
-    const categoryData = await findCategoryByName(categoryName);
-
-    console.log(categoryData);
-
-    if (!categoryData) {
-      return res.status(404).json({ message: "Category not found." });
-    }
-
-    const imageUrls = req.file
-      ? `${req.protocol}://${req.get("host")}/uploads/${req.file.filename}`
-      : null;
-
-    const slug = name
-      .toLowerCase()
-      .replace(/[^\w\s-]/g, "")
-      .replace(/\s+/g, "-")
-      .replace(/-+/g, "-")
-      .trim();
-
-    const newProduct = await createProduct({
-      name,
-      slug,
-      description,
-      basePrice,
-      categoryId: categoryData._id,
-      imageUrls,
-    });
-
-    return res.status(201).json(newProduct);
-  } catch (error) {
-    console.error("Error creating product:", error);
-    return res.status(500).json({ error: "Internal server error." });
-  }
+router.post("/products", upload.single("image"), async (req, res) => {
+  // try {
+  //   const { name, description, basePrice, categoryName } = req.body;
+  //   if (!name || !description || !basePrice || !categoryName) {
+  //     return res.status(400).json({ error: "All fields are required." });
+  //   }
+  //   const categoryData = await findCategoryByName(categoryName);
+  //   if (!categoryData) {
+  //     return res.status(404).json({ message: "Category not found." });
+  //   }
+  //   const imageUrls = req.file
+  //     ? `${req.protocol}://${req.get("host")}/uploads/${req.file.filename}`
+  //     : null;
+  //   const slug = name
+  //     .toLowerCase()
+  //     .replace(/[^\w\s-]/g, "")
+  //     .replace(/\s+/g, "-")
+  //     .replace(/-+/g, "-")
+  //     .trim();
+  //   const newProduct = await createProduct({
+  //     name,
+  //     slug,
+  //     description,
+  //     basePrice,
+  //     categoryId: categoryData._id,
+  //     imageUrls,
+  //   });
+  //   return res.status(201).json(newProduct);
+  // } catch (error) {
+  //   console.error("Error creating product:", error);
+  //   return res.status(500).json({ error: "Internal server error." });
+  // }
 });
 
 router.delete("/products/:id", async (req, res) => {
