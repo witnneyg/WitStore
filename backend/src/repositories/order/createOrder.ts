@@ -12,7 +12,7 @@ export class CreateOrderRepository implements ICreateOrderRepository {
   ): Promise<IOrder> {
     const orderProducts = await OrderProduct.insertMany(
       cartProduct.map((product) => ({
-        productId: product.id,
+        productId: product.productId,
         basePrice: product.basePrice,
         discountPercentage: product.discountPercentage,
         quantity: product.quantity,

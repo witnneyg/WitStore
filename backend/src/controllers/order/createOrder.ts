@@ -39,7 +39,7 @@ export class CreateOrderController implements IController {
           !product.productId ||
           !product.basePrice ||
           !product.quantity ||
-          !product.discountPercentage
+          product.discountPercentage == null
         ) {
           return {
             statusCode: 400,
