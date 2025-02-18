@@ -37,29 +37,3 @@ class Database {
 }
 
 export const MongoClient = Database.getInstance();
-
-// export const MongoClient = {
-//   async connect() {
-//     if (!global.mongoose) {
-//       try {
-//         global.mongoose = await mongoose.connect(process.env.MONGODB_URL);
-//         console.log("conectou ao mongodb");
-//       } catch (error) {
-//         console.error("erro ao contecar ao MongoDB", error);
-//       }
-//     }
-//   },
-// };
-
-// export async function databaseConnection() {
-//   if (!global.mongoose) {
-//     try {
-//       global.mongoose = await mongoose.connect(process.env.MONGODB_URL);
-//       console.log("conectou ao mongodb");
-//     } catch (error) {
-//       console.error("erro ao contecar ao MongoDB", error);
-//     }
-//   }
-// }
-
-//singleton qualquer camada pd chamar o mongoClient e a instancia vai ser sempre a msm para todas as chamadas

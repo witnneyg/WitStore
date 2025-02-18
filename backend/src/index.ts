@@ -7,7 +7,7 @@ import registerUser from "./controllers/register/index.js";
 import userLogin from "./controllers/login/index.js";
 import checkout from "./controllers/checkout/index.js";
 import { authMiddleware } from "./middleware/authenticate-middleware.js";
-// import payment_success from "./controllers/order-payment-success.js";
+import payment_success from "./controllers/payment-success/index.js";
 import order from "./controllers/order/index.js";
 import dashboard from "./controllers/dashboard/index.js";
 import { roleMiddlware } from "./middleware/role-middleware.js";
@@ -63,7 +63,7 @@ const main = async () => {
     "/api/order/payment-success",
     express.raw({ type: "application/json" })
   );
-  // app.use("/api/order/payment-success", payment_success);
+  app.use("/api/order/payment-success", payment_success);
 
   app.listen(port, () => {
     console.log(`Rodando na porta ${port}!`);
