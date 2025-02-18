@@ -31,7 +31,7 @@ export function Cart() {
       }
 
       const cartProducts = products.map((product) => ({
-        id: product._id,
+        productId: product._id,
         basePrice: product.basePrice,
         discountPercentage: product.discountPercentage,
         quantity: product.quantity,
@@ -54,7 +54,7 @@ export function Cart() {
         "/checkout",
         {
           products,
-          orderId: data.order._id,
+          orderId: data._id,
         },
         {
           headers: {
@@ -66,7 +66,7 @@ export function Cart() {
       const stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
 
       stripe?.redirectToCheckout({
-        sessionId: checkout.data?.checkout?.id,
+        sessionId: checkout.data.id,
       });
 
       clearCart();
