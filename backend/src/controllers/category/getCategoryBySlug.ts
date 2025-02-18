@@ -17,15 +17,14 @@ export class GetCategoryBySlugController implements IController {
   ) {}
 
   async handle(
-    httpRequest: HttpRequest<string>
+    httpRequest: HttpRequest<{ slug: string }>
   ): Promise<HttpResponse<ICategory | string>> {
     try {
-      const slug = httpRequest.params;
+      const { slug } = httpRequest.params;
 
       const category =
         await this.getCategoryBySlugRepository.getCategoriesBySlug(slug);
 
-      console.log(category);
       return {
         statusCode: 200,
         body: category,

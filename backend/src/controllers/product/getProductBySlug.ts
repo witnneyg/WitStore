@@ -7,10 +7,10 @@ export class GetProductBySlugController implements IController {
   ) {}
 
   async handle(
-    httpRequest: HttpRequest<unknown>
+    httpRequest: HttpRequest<{ slug: string }>
   ): Promise<HttpResponse<unknown>> {
     try {
-      const slug = httpRequest.params;
+      const { slug } = httpRequest.params;
 
       const product = await this.getProductBySlugRepository.getProductBySlug(
         slug

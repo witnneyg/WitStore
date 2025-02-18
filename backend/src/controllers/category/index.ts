@@ -27,7 +27,7 @@ router.get("/:slug", async (req, res) => {
     getCategoryBySlugRepository
   );
   const { body, statusCode } = await getCategoryBySlugController.handle({
-    params: req.params.slug,
+    params: { slug: req.params.slug },
   });
 
   res.status(statusCode).send(body);

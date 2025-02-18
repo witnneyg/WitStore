@@ -24,7 +24,7 @@ router.get("/:slug", async (req, res) => {
   );
 
   const { body, statusCode } = await getProductBySlugController.handle({
-    params: req.params.slug,
+    params: { slug: req.params.slug },
   });
 
   res.status(statusCode).send(body);
