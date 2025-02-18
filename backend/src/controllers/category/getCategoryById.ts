@@ -8,12 +8,10 @@ export class GetCategoryByIdController implements IController {
   ) {}
 
   async handle(
-    httpRequest: HttpRequest<unknown>
+    httpRequest: HttpRequest<{ id: string }>
   ): Promise<HttpResponse<unknown>> {
     try {
-      const id = httpRequest.params;
-
-      console.log(id);
+      const { id } = httpRequest.params;
 
       if (!id) {
         return {

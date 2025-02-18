@@ -41,7 +41,7 @@ router.get("/id/:id", async (req, res) => {
   );
 
   const { body, statusCode } = await getCategoryByIdController.handle({
-    params: req.params.id,
+    params: { id: req.params.id },
   });
 
   res.status(statusCode).send(body);
