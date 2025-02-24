@@ -13,13 +13,19 @@ export class UpdateProductController implements IController {
     >
   ): Promise<HttpResponse<ProductsParams | string>> {
     try {
-      const { productId } = httpRequest.params;
-      const { name, basePrice } = httpRequest.body;
+      const { productId } = httpRequest.params ?? {};
+      const { name, basePrice } = httpRequest.body ?? {};
 
       if (!productId || !name || basePrice === undefined) {
+        const missingFields = [];
+
+        if (!productId) missingFields.push("productId");
+        if (!name) missingFields.push("name");
+        if (basePrice === undefined) missingFields.push("basePrice");
+
         return {
           statusCode: 400,
-          body: "Missing required fields",
+          body: `Missing required fields: ${missingFields.join(", ")}`,
         };
       }
 

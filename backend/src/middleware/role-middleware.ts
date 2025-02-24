@@ -1,5 +1,7 @@
+import { Request, Response, NextFunction } from "express";
+
 export function roleMiddlware(requiredRole: string) {
-  return (req, res, next) => {
+  return (req: any, res: any, next: any) => {
     const { role } = req.user;
 
     if (role !== requiredRole) {

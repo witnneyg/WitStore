@@ -10,13 +10,20 @@ export class DeleteProductController implements IController {
     httpRequest: HttpRequest<{ id: string }>
   ): Promise<HttpResponse<ProductsParams | string>> {
     try {
-      const { id } = httpRequest.params;
+      const { id } = httpRequest.params ?? {};
+
+      if (!id) {
+        return {
+          statusCode: 400,
+          body: "Id is missing",
+        };
+      }
 
       await this.deleteProductRepository.deleteProduct(id);
 
       return {
         statusCode: 204,
-        body: null,
+        body: "Product deleted successfully",
       };
     } catch (error) {
       if (error instanceof Error && error.message === "PRODUCT_NOT_FOUND") {

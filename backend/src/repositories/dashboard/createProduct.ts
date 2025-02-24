@@ -1,5 +1,5 @@
 import {
-  CreateProductsParams,
+  ProductsParams,
   ICreateProductRepository,
 } from "../../controllers/dashboard/protocols.js";
 import { Category, ICategory } from "../../models/categorySchema.js";
@@ -11,9 +11,7 @@ export class CreateProductRepository implements ICreateProductRepository {
     return category;
   }
 
-  async createProduct(
-    product: CreateProductsParams
-  ): Promise<CreateProductsParams> {
+  async createProduct(product: ProductsParams): Promise<ProductsParams> {
     const newProduct = new Product(product);
     await newProduct.save();
 

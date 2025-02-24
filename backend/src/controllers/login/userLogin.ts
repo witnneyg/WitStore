@@ -8,28 +8,28 @@ export class UserLoginController implements IController {
   constructor(private readonly loginUserRepository: IUserLoginRepository) {}
 
   async handle(
-    httpRequest: HttpRequest<IUserLogin>
+    httpRequest: HttpRequest<{ password: string }>
   ): Promise<
     HttpResponse<{ user: Omit<IUser, "password">; token: string } | string>
   > {
     try {
-      const { password } = httpRequest.body;
+      const passwordRequest = httpRequest.body.password;
 
       const user = await this.loginUserRepository.userLogin(httpRequest.body);
 
-      if (!user || !(await bcrypt.compare(password, user.password))) {
+      if (!user || !(await bcrypt.compare(passwordRequest, user.password))) {
         return {
           statusCode: 400,
           body: "Email or password wrong",
         };
       }
-      user.password = undefined;
+      const { password, ...userWithoutPassword } = user;
 
       const token = generateToken(user);
 
       return {
         statusCode: 200,
-        body: { user, token },
+        body: { user: userWithoutPassword, token },
       };
     } catch (error) {
       return {

@@ -2,7 +2,7 @@ import Stripe from "stripe";
 import { IPaymentSuccessRepository } from "../../controllers/payment-success/protocols.js";
 import { Order } from "../../models/orderSchema.js";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
   apiVersion: "2024-11-20.acacia",
 });
 
@@ -14,7 +14,7 @@ export class PaymentSuccessRepository implements IPaymentSuccessRepository {
     const event = stripe.webhooks.constructEvent(
       body,
       signature,
-      process.env.STRIPE_WEBHOOK_SECRET_KEY
+      process.env.STRIPE_WEBHOOK_SECRET_KEY as string
     );
     if (event.type === "checkout.session.completed") {
       const session = event.data.object;
@@ -25,7 +25,16 @@ export class PaymentSuccessRepository implements IPaymentSuccessRepository {
           expand: ["line_items"],
         }
       );
+
+      if (!sessionWithLineItems.line_items) {
+        throw new Error("Line items not found in session");
+      }
+
       const lineItems = sessionWithLineItems.line_items.data;
+
+      if (!session.metadata || !session.metadata.orderId) {
+        throw new Error("Order ID not found in session metadata");
+      }
 
       await Order.findByIdAndUpdate(
         session.metadata.orderId,
@@ -39,5 +48,6 @@ export class PaymentSuccessRepository implements IPaymentSuccessRepository {
 
       return lineItems;
     }
+    return null;
   }
 }

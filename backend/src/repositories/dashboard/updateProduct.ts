@@ -11,10 +11,16 @@ export class UpdateProductRepository implements IUpdateProductRepository {
     name,
     basePrice,
   }: IUpdateProductParams): Promise<ProductsParams> {
-    return await Product.findByIdAndUpdate(
+    const updatedProduct = await Product.findByIdAndUpdate(
       productId,
       { name, basePrice },
       { new: true }
     );
+
+    if (!updatedProduct) {
+      throw new Error("Product not found");
+    }
+
+    return updatedProduct;
   }
 }

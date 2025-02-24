@@ -40,6 +40,8 @@ export class CreateProductController implements IController {
         categoryName
       );
 
+      const categoryId = (categoryData as { _id: string })._id.toString();
+
       if (!categoryData) {
         return {
           statusCode: 404,
@@ -63,7 +65,7 @@ export class CreateProductController implements IController {
         slug,
         description,
         basePrice,
-        categoryId: categoryData._id.toString(),
+        categoryId,
         imageUrls,
       });
 

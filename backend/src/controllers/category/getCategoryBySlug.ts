@@ -20,7 +20,14 @@ export class GetCategoryBySlugController implements IController {
     httpRequest: HttpRequest<{ slug: string }>
   ): Promise<HttpResponse<ICategory | string>> {
     try {
-      const { slug } = httpRequest.params;
+      const { slug } = httpRequest.params ?? {};
+
+      if (!slug) {
+        return {
+          statusCode: 400,
+          body: "Slug is missing",
+        };
+      }
 
       const category =
         await this.getCategoryBySlugRepository.getCategoriesBySlug(slug);

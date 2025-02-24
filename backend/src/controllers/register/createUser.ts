@@ -16,13 +16,13 @@ export class CreateUserController implements IController {
 
       const user = await this.createUserRepository.createUser(body);
 
-      user.password = undefined;
+      const { password, ...userWithoutPassword } = user;
 
       const token = generateToken(user);
 
       return {
         statusCode: 201,
-        body: { user, token },
+        body: { user: userWithoutPassword, token },
       };
     } catch (error) {
       return {

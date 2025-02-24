@@ -3,7 +3,8 @@ import bcrypt from "bcrypt";
 
 const saltRounds = 10;
 
-export interface IUser extends Document {
+export interface IUser {
+  _id: string;
   name: string;
   email: string;
   password: string;
@@ -32,7 +33,7 @@ UserSchema.pre("save", async function (next) {
     this.password = hash;
     next();
   } catch (error) {
-    next(error);
+    next(new Error("An unknown error occurred"));
   }
 });
 

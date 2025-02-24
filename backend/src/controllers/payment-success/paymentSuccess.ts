@@ -1,11 +1,8 @@
-import Stripe from "stripe";
-import { HttpRequest, HttpResponse, IController } from "../protocols.js";
-
 import dotenv from "dotenv";
+import { HttpRequest, HttpResponse, IController } from "../protocols.js";
 import { IPaymentSuccessRepository } from "./protocols.js";
 
 dotenv.config();
-
 export class PaymentSuccessController implements IController {
   constructor(
     private readonly paymentSuccessRepository: IPaymentSuccessRepository

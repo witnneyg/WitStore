@@ -1,4 +1,3 @@
-import { ICategory } from "../../models/categorySchema.js";
 import { HttpRequest, HttpResponse, IController } from "../protocols.js";
 import { IGetCategoriesByIdRepository } from "./protocols.js";
 
@@ -11,7 +10,7 @@ export class GetCategoryByIdController implements IController {
     httpRequest: HttpRequest<{ id: string }>
   ): Promise<HttpResponse<unknown>> {
     try {
-      const { id } = httpRequest.params;
+      const { id } = httpRequest.params ?? {};
 
       if (!id) {
         return {

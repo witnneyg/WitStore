@@ -10,7 +10,14 @@ export class GetProductBySlugController implements IController {
     httpRequest: HttpRequest<{ slug: string }>
   ): Promise<HttpResponse<unknown>> {
     try {
-      const { slug } = httpRequest.params;
+      const { slug } = httpRequest.params ?? {};
+
+      if (!slug) {
+        return {
+          statusCode: 400,
+          body: "Slug is missing",
+        };
+      }
 
       const product = await this.getProductBySlugRepository.getProductBySlug(
         slug

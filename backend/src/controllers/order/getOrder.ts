@@ -8,7 +8,7 @@ export class GetOrderController implements IController {
     httpRequest: HttpRequest<{ userId: string }>
   ): Promise<HttpResponse<IOrder[] | string>> {
     try {
-      const { userId } = httpRequest.params;
+      const { userId } = httpRequest.params ?? {};
 
       if (!userId) {
         return {
