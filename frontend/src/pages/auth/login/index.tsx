@@ -32,8 +32,9 @@ export function LoginPage() {
   async function onSubmit(data: FormData) {
     try {
       const response = await api.post("/auth/login", data);
+      console.log(response);
 
-      if (response.status === 201) {
+      if (response.status === 200) {
         const token = response.data.token;
         localStorage.setItem("token", token);
 
