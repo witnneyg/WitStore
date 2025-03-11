@@ -1,5 +1,4 @@
 import { Router } from "express";
-import Stripe from "stripe";
 import { StripeCheckoutController } from "./stripeCheckout.js";
 import { StripeCheckoutRepository } from "../../repositories/checkout/stripeCheckout.js";
 
