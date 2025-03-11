@@ -20,6 +20,7 @@ import { AdminPage } from "./pages/admin/Admin.tsx";
 import { Products } from "./pages/admin/Products.tsx";
 import { ProtectedRoute } from "./pages/admin/components/protectedRoute.tsx";
 import { NoPermissionPage } from "./pages/admin/noPermissionPage.tsx";
+import { Toaster } from "sonner";
 
 const router = createBrowserRouter([
   {
@@ -95,6 +96,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     <UserProvider>
       <CartProvider>
         <RouterProvider router={router} />
+        <Toaster />
       </CartProvider>
     </UserProvider>
   </React.StrictMode>
