@@ -22,9 +22,11 @@ import { Link } from "react-router-dom";
 import { Cart } from "./cart";
 import { useContext } from "react";
 import { UserContext } from "@/context/user-context";
+import { CartContext } from "@/context/cart-context";
 
 export function Header() {
   const { user, setUser } = useContext(UserContext);
+  const { products } = useContext(CartContext);
 
   function handleLogout() {
     localStorage.removeItem("token");
@@ -163,7 +165,7 @@ export function Header() {
         )}
       </div>
 
-      <div className="items-center gap-1 flex">
+      <div className="items-center gap-3 flex">
         <div className="hidden sm:flex">
           {user ? (
             <Link to="/">
@@ -193,7 +195,10 @@ export function Header() {
 
         <Sheet>
           <SheetTrigger asChild>
-            <Button size="icon" variant="outline">
+            <Button size="icon" variant="outline" className="relative">
+              <span className="absolute -left-1 top-6 rounded-full bg-red-600  text-xs w-4">
+                {products.length}
+              </span>
               <ShoppingCartIcon />
             </Button>
           </SheetTrigger>
