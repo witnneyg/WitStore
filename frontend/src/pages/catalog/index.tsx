@@ -4,9 +4,11 @@ import { useEffect, useState } from "react";
 import { CategoryItem } from "./components/category-item";
 import { CategoryType } from "@/lib/utils";
 import { api } from "@/services/api";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export function CatalogPage() {
   const [categories, setCategories] = useState<CategoryType[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function getCategories() {
@@ -15,6 +17,8 @@ export function CatalogPage() {
         setCategories(res.data);
       } catch (error) {
         console.error(error);
+      } finally {
+        setLoading(false);
       }
     }
 
@@ -32,9 +36,13 @@ export function CatalogPage() {
       </Badge>
 
       <div className="grid grid-cols-2 gap-8">
-        {categories.map((category) => (
-          <CategoryItem key={category._id} category={category} />
-        ))}
+        {loading
+          ? Array(6)
+              .fill(0)
+              .map((_, index) => <Skeleton key={index} className="h-[190px]" />)
+          : categories.map((category) => (
+              <CategoryItem key={category._id} category={category} />
+            ))}
       </div>
     </div>
   );

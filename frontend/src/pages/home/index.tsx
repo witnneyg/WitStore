@@ -15,6 +15,7 @@ import { api } from "@/services/api";
 
 export function HomePage() {
   const [categoriesData, setCategoriesData] = useState<CategoryType[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function getCategories() {
@@ -23,6 +24,8 @@ export function HomePage() {
         setCategoriesData(response.data);
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoading(false);
       }
     }
 
@@ -64,7 +67,7 @@ export function HomePage() {
 
         <div>
           <SectionTitle>Ofertas</SectionTitle>
-          <ProductList products={productsDiscount} />
+          <ProductList products={productsDiscount} loading={loading} />
         </div>
 
         <div className="flex justify-center md:gap-6 lg:gap-8 w-full md:px-4 lg:px-3 ">
@@ -87,7 +90,7 @@ export function HomePage() {
 
         <div>
           <SectionTitle>Teclados</SectionTitle>
-          <ProductList products={keyboards} />
+          <ProductList products={keyboards} loading={loading} />
         </div>
 
         <PromoBanner
@@ -103,7 +106,7 @@ export function HomePage() {
 
         <div>
           <SectionTitle>Fones</SectionTitle>
-          <ProductList products={headphones} />
+          <ProductList products={headphones} loading={loading} />
         </div>
       </div>
     </div>

@@ -5,9 +5,11 @@ import { CategoryType, Product } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { PercentIcon } from "lucide-react";
 import { api } from "@/services/api";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export function DealsPage() {
   const [deals, setDeals] = useState<CategoryType[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function getProducts() {
@@ -16,6 +18,8 @@ export function DealsPage() {
         setDeals(res.data);
       } catch (error) {
         console.error(error);
+      } finally {
+        setLoading(false);
       }
     }
 
@@ -39,13 +43,19 @@ export function DealsPage() {
         Ofertas
       </Badge>
 
-      <div className="grid grid-cols-2 gap-8  sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 ">
-        {productsDiscount.map((product) => (
-          <ProductItem
-            key={product._id}
-            product={computeProductTotalPrice(product as Product)}
-          />
-        ))}
+      <div className="grid grid-cols-2 gap-8  sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+        {loading
+          ? Array(10)
+              .fill(0)
+              .map((_, index) => (
+                <Skeleton key={index} className="w-full min-h-[170px]" />
+              ))
+          : productsDiscount.map((product) => (
+              <ProductItem
+                key={product._id}
+                product={computeProductTotalPrice(product as Product)}
+              />
+            ))}
       </div>
     </div>
   );

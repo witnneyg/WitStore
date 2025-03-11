@@ -6,10 +6,12 @@ import { useParams } from "react-router-dom";
 import { Product } from "@/lib/utils";
 import { CATEGORY_ICON } from "@/constants/category-icon";
 import { api } from "@/services/api";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export function CategoryProducts() {
   const params = useParams();
   const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function getProductsFromCategories() {
@@ -19,6 +21,8 @@ export function CategoryProducts() {
         setProducts(res.data.products);
       } catch (error) {
         console.error(error);
+      } finally {
+        setLoading(false);
       }
     }
 
@@ -39,12 +43,21 @@ export function CategoryProducts() {
         {params.slug}
       </Badge>
       <div className="grid grid-cols-2 gap-8">
-        {products.map((product) => (
-          <ProductItem
-            key={product._id}
-            product={computeProductTotalPrice(product)}
-          />
-        ))}
+        {loading
+          ? Array(6)
+              .fill(0)
+              .map((_, index) => (
+                <Skeleton
+                  key={index}
+                  className="h-[12rem]  lg:h-[35rem] w-full"
+                />
+              ))
+          : products.map((product) => (
+              <ProductItem
+                key={product._id}
+                product={computeProductTotalPrice(product)}
+              />
+            ))}
       </div>
     </div>
   );

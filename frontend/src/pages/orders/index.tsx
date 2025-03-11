@@ -5,6 +5,7 @@ import { api } from "@/services/api";
 import { UserContext } from "@/context/user-context";
 import { Product } from "@/lib/utils";
 import { OrderItem } from "./components/order-item";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export interface OrderProducts {
   _id: string;
@@ -28,6 +29,7 @@ export interface Order {
 export function OrdersPage() {
   const { user } = useContext(UserContext);
   const [orders, setOrder] = useState<Order[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function getOrder() {
@@ -42,6 +44,8 @@ export function OrdersPage() {
         setOrder(res.data);
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoading(false);
       }
     }
 
@@ -58,7 +62,13 @@ export function OrdersPage() {
         Meus Pedidos
       </Badge>
       <div className="flex flex-col gap-5 mt-5">
-        {orders.length == 0 ? (
+        {loading ? (
+          Array(6)
+            .fill(0)
+            .map((_, index) => (
+              <Skeleton key={index} className="h-[80px] w-full" />
+            ))
+        ) : orders.length === 0 ? (
           <p>Não possui nenhum pedido</p>
         ) : (
           orders.map((order) => <OrderItem key={order._id} order={order} />)
