@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { PercentIcon } from "lucide-react";
 import { api } from "@/services/api";
 import { Skeleton } from "@/components/ui/skeleton";
+import { getProductsByDiscount } from "@/lib/product-utils";
 
 export function DealsPage() {
   const [deals, setDeals] = useState<CategoryType[]>([]);
@@ -26,13 +27,7 @@ export function DealsPage() {
     getProducts();
   }, []);
 
-  function getProductsByDiscount(): Product[] {
-    return deals.flatMap((category) =>
-      category.products.filter((product) => product.discountPercentage > 0)
-    );
-  }
-
-  const productsDiscount = getProductsByDiscount();
+  const productsDiscount = getProductsByDiscount(deals);
   return (
     <div className="p-5 flex flex-col gap-8">
       <Badge
