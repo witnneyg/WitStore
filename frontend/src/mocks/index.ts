@@ -64,5 +64,5 @@ export const mockProduct = {
   discountPercentage: 10,
   imageUrls: ["https://example.com/mouse-product.jpg"],
   slug: "mouse-gamer-pro",
-  categoryId: 2,
+  categoryId: "2",
 };
