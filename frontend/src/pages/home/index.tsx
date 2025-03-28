@@ -18,8 +18,6 @@ export function HomePage() {
   const [categoriesData, setCategoriesData] = useState<CategoryType[]>([]);
   const [loading, setLoading] = useState(true);
 
-  console.log(categoriesData);
-
   useEffect(() => {
     async function getCategories() {
       try {
