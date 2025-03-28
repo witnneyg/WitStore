@@ -6,7 +6,6 @@ interface CategoryItemProps {
 }
 
 export function CategoryItem({ category }: CategoryItemProps) {
-  console.log({ category });
   return (
     <Link to={`/category/${category.slug}`}>
       <div className="flex flex-col">
