@@ -9,7 +9,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "src"), // Ajuste para garantir que o Vitest o reconheça
+      "@": path.resolve(__dirname, "src"),
     },
   },
 });

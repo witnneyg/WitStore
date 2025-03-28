@@ -1,6 +1,6 @@
 import { Categories } from "./components/categories";
 import { ProductList } from "../../components/ui/product-list";
-import { CategoryType, Product } from "@/lib/utils";
+import { CategoryType } from "../../lib/utils";
 import { useEffect, useState } from "react";
 
 import bannerDesconto from "../../assets/banner-desconto.png";
@@ -11,11 +11,14 @@ import fretegratis from "../../assets/banner-fretegrátis.png";
 
 import { SectionTitle } from "../../components/ui/section-title";
 import { PromoBanner } from "./components/promo-banner";
-import { api } from "@/services/api";
+import { api } from "../../services/api";
+import { getProductsByDiscount, getProductsBySlug } from "@/lib/product-utils";
 
 export function HomePage() {
   const [categoriesData, setCategoriesData] = useState<CategoryType[]>([]);
   const [loading, setLoading] = useState(true);
+
+  console.log(categoriesData);
 
   useEffect(() => {
     async function getCategories() {
@@ -32,21 +35,9 @@ export function HomePage() {
     getCategories();
   }, []);
 
-  function getProductsBySlug(slug: string): Product[] {
-    const categoryData = categoriesData.find((cat) => cat.slug == slug);
-
-    return categoryData ? categoryData.products : [];
-  }
-
-  function getProductsByDiscount(): Product[] {
-    return categoriesData.flatMap((category) =>
-      category.products.filter((product) => product.discountPercentage > 0)
-    );
-  }
-
-  const productsDiscount = getProductsByDiscount();
-  const keyboards = getProductsBySlug("teclados");
-  const headphones = getProductsBySlug("headphones");
+  const productsDiscount = getProductsByDiscount(categoriesData);
+  const keyboards = getProductsBySlug(categoriesData, "teclados");
+  const headphones = getProductsBySlug(categoriesData, "headphones");
 
   return (
     <div className="flex flex-col gap-8 py-8 md:py-0">
