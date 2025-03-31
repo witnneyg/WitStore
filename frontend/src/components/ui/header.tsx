@@ -120,7 +120,7 @@ export function Header() {
                       onClick={handleLogout}
                     >
                       <LogOut size={16} />
-                      Fazer Logout
+                      Logout
                     </Button>
                   </Link>
                 ) : (
@@ -130,7 +130,7 @@ export function Header() {
                       className="w-full justify-start gap-2"
                     >
                       <LogInIcon size={16} />
-                      Fazer Login
+                      Login
                     </Button>
                   </Link>
                 )}
@@ -187,7 +187,7 @@ export function Header() {
                 className="w-[5rem] items-center gap-1"
               >
                 <LogInIcon size={16} />
-                login
+                Login
               </Button>
             </Link>
           )}
