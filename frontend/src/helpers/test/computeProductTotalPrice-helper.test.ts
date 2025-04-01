@@ -1,6 +1,6 @@
 import { computeProductTotalPrice } from "../computeProductTotalPrice";
 
-describe("Product helper", () => {
+describe("ComputeProductTotalPrice helper", () => {
   test("should calculate total price for Product with discount", () => {
     const mockProduct = {
       _id: "101",
