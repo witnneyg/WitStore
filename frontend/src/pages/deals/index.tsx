@@ -1,5 +1,5 @@
 import { ProductItem } from "@/components/ui/product-item";
-import { computeProductTotalPrice } from "@/helpers/product";
+import { computeProductTotalPrice } from "@/helpers/computeProductTotalPrice";
 import { useEffect, useState } from "react";
 import { CategoryType, Product } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";

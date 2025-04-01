@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Product } from "@/lib/utils";
 import { ProductImages } from "./components/product-images";
 import { ProductInfo } from "./components/product-info";
-import { computeProductTotalPrice } from "@/helpers/product";
+import { computeProductTotalPrice } from "@/helpers/computeProductTotalPrice";
 import { ProductList } from "../../components/ui/product-list";
 import { SectionTitle } from "@/components/ui/section-title";
 import { api } from "@/services/api";
@@ -73,7 +73,7 @@ export function ProductDetailsPage() {
           </>
         )}
       </div>
-      <SectionTitle>Products Recomendados</SectionTitle>
+      <SectionTitle>Produtos Recomendados</SectionTitle>
 
       {loading ? (
         <div className="flex w-full overflow-hidden mx-6 gap-4">

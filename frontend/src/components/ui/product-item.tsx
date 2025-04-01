@@ -1,4 +1,4 @@
-import { ProductWithTotalPrice } from "@/helpers/product";
+import { ProductWithTotalPrice } from "@/helpers/computeProductTotalPrice";
 import { Link } from "react-router-dom";
 import { DiscountBadge } from "./discount-badge";
 

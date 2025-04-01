@@ -1,6 +1,6 @@
 import { Badge } from "@/components/ui/badge";
 import { ProductItem } from "@/components/ui/product-item";
-import { computeProductTotalPrice } from "@/helpers/product";
+import { computeProductTotalPrice } from "@/helpers/computeProductTotalPrice";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Product } from "@/lib/utils";

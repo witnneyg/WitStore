@@ -1,4 +1,4 @@
-import { computeProductTotalPrice } from "../product";
+import { computeProductTotalPrice } from "../computeProductTotalPrice";
 
 describe("Product helper", () => {
   test("should calculate total price for Product with discount", () => {

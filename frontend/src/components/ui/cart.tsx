@@ -4,7 +4,7 @@ import { Badge } from "./badge";
 import { CartContext, CartProduct } from "@/context/cart-context";
 import { useContext } from "react";
 import { CartItem } from "./cart-item";
-import { computeProductTotalPrice } from "@/helpers/product";
+import { computeProductTotalPrice } from "@/helpers/computeProductTotalPrice";
 import { Separator } from "./separator";
 import { ScrollArea } from "./scroll-area";
 import { Button } from "./button";

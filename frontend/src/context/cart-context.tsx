@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { ProductWithTotalPrice } from "@/helpers/product";
+import { calculatePrices } from "@/helpers/calculatePrices";
+import { ProductWithTotalPrice } from "@/helpers/computeProductTotalPrice";
 import { createContext, ReactNode, useEffect, useMemo, useState } from "react";
 
 export interface CartProduct extends ProductWithTotalPrice {
@@ -49,19 +50,9 @@ export function CartProvider({ children }: { children: ReactNode }) {
     localStorage.setItem("@wit-store/cart-products", JSON.stringify(products));
   }, [products]);
 
-  const subtotal = useMemo(() => {
-    return products.reduce((acc, product) => {
-      return acc + product.basePrice * product.quantity;
-    }, 0);
+  const { subtotal, total, totalDiscount } = useMemo(() => {
+    return calculatePrices(products);
   }, [products]);
-
-  const total = useMemo(() => {
-    return products.reduce((acc, product) => {
-      return acc + product.totalPrice * product.quantity;
-    }, 0);
-  }, [products]);
-
-  const totalDiscount = subtotal - total;
 
   function addProductToCart(product: CartProduct) {
     const productIsAlreadyOnCart = products.filter(

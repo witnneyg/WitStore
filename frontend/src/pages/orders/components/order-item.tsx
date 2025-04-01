@@ -9,29 +9,18 @@ import { format } from "date-fns";
 import { OrderProductItem } from "./order-product-item";
 import { Separator } from "@/components/ui/separator";
 import { useMemo } from "react";
-import { computeProductTotalPrice } from "@/helpers/product";
 import { getOrderStatus } from "../helpers/status";
 import { Order } from "..";
+import { calculatePrices } from "@/helpers/calculatePrices";
 
 interface OrderItemProps {
   order: Order;
 }
 
 export function OrderItem({ order }: OrderItemProps) {
-  const subtotal = useMemo(() => {
-    return order.orderProducts.reduce((acc, orderProduct) => {
-      return acc + orderProduct.basePrice * orderProduct.quantity;
-    }, 0);
+  const { subtotal, total, totalDiscount } = useMemo(() => {
+    return calculatePrices(order.orderProducts);
   }, [order.orderProducts]);
-
-  const total = useMemo(() => {
-    return order.orderProducts.reduce((acc, product) => {
-      const productWithTotalPrice = computeProductTotalPrice(product);
-      return acc + productWithTotalPrice.totalPrice * product.quantity;
-    }, 0);
-  }, [order.orderProducts]);
-
-  const totalDiscounts = subtotal - total;
 
   return (
     <Card className="px-5">
@@ -96,7 +85,7 @@ export function OrderItem({ order }: OrderItemProps) {
 
                 <div className="flex justify-between w-full py-3">
                   <p>Descontos</p>
-                  <p>-R$ {totalDiscounts.toFixed(2)}</p>
+                  <p>-R$ {totalDiscount.toFixed(2)}</p>
                 </div>
 
                 <Separator />

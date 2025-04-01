@@ -1,4 +1,4 @@
-import { computeProductTotalPrice } from "@/helpers/product";
+import { computeProductTotalPrice } from "@/helpers/computeProductTotalPrice";
 import { OrderProducts } from "..";
 
 interface OrderProductItemProps {
