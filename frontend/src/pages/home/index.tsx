@@ -47,7 +47,7 @@ export function HomePage() {
       <PromoBanner
         src={bannerOfertas}
         alt="Até 55% de desconto esse mês"
-        className="hidden md:block"
+        className="hidden md:block h-[23rem] object-cover"
       />
       <div className="md:container md:mx-auto flex flex-col gap-8 py-8 md:py-0">
         <div className="mt-8 px-5">
