@@ -6,6 +6,9 @@ import { useForm } from "react-hook-form";
 import { AxiosError } from "axios";
 import { CustomJwtPayload, UserContext } from "@/context/user-context";
 import { jwtDecode } from "jwt-decode";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 interface FormData {
   email: string;
@@ -59,13 +62,24 @@ export function LoginPage() {
       onSubmit={handleSubmit(onSubmit)}
       className="flex flex-col gap-4 items-center justify-center h-full w-full"
     >
-      <h1 className="text-4xl font-bold text-primary">Login</h1>
+      <div className="flex flex-col space-y-2 text-center">
+        <h1 className="text-3xl font-semibold tracking-tight">
+          Bem vindo de volta!
+        </h1>
+        <p className="text-base text-muted-foreground">
+          Insira suas credenciais para entrar em sua conta
+        </p>
+      </div>
 
-      <div className="flex flex-col h-[68px]">
-        <input
+      <div className="flex flex-col h-[68px] gap-2">
+        <Label htmlFor="email" className="text-base">
+          Email
+        </Label>
+
+        <Input
           type="email"
           placeholder="Digite seu email"
-          className="w-96 rounded-xl p-3 outline-none text-black"
+          className="w-96 rounded-xl bg-white border-gray-300"
           {...register("email", {
             required: "Email é obrigatório",
             pattern: {
@@ -75,18 +89,20 @@ export function LoginPage() {
           })}
         />
         {errors.email && (
-          <p className="text-red-600 text-sm pl-3 py-1">
-            {errors.email.message}
-          </p>
+          <p className="text-red-600 text-sm pl-1">{errors.email.message}</p>
         )}
       </div>
 
-      <div className="flex flex-col h-[68px]">
-        <div className="flex flex-col relative w-96 rounded-xl text-black">
-          <input
+      <div className="flex flex-col h-[68px] mt-3">
+        <div className="flex flex-col relative w-96 rounded-xl text-black gap-2">
+          <Label htmlFor="password" className="text-base">
+            Password
+          </Label>
+          <Input
+            id="password"
             type={showPassword ? "text" : "password"}
             placeholder="Digite sua senha"
-            className="flex w-full rounded-xl p-3 outline-none"
+            className="w-96 rounded-xl bg-white border-gray-300"
             {...register("password", {
               required: "Senha é obrigatória",
               minLength: {
@@ -96,32 +112,36 @@ export function LoginPage() {
             })}
           />
           <span
-            className="absolute right-3 top-3 cursor-pointer"
+            className="absolute right-3 top-[2.6rem] cursor-pointer"
             onClick={handleShowPassword}
           >
             {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
           </span>
         </div>
         {errors.password && (
-          <p className="text-red-600 text-sm pl-3 py-1">
+          <p className="text-red-600 text-sm pl-1 mt-1">
             {errors.password.message}
           </p>
         )}
         {errorMessage && (
-          <p className="text-red-600 text-sm pl-3 py-1">{errorMessage}</p>
+          <p className="text-red-600 text-sm pl-1 mt-1">{errorMessage}</p>
         )}
       </div>
 
-      <button
+      <Button
         type="submit"
-        className="w-96 rounded-xl bg-black text-white p-3 hover:bg-neutral-950"
+        variant="secondary"
+        className="w-96 rounded-xl  text-white p-3 mt-8"
       >
         Login
-      </button>
+      </Button>
 
-      <div className="text-black">
+      <div className="px-8 text-center text-sm text-muted-foreground">
         Não tem uma conta?{" "}
-        <Link to="/auth/register" className="text-primary cursor-pointer">
+        <Link
+          to="/auth/register"
+          className="text-gray-800 underline underline-offset-4 hover:text-gray-900"
+        >
           Registre-se
         </Link>
       </div>
