@@ -4,6 +4,9 @@ import { Eye, EyeOff } from "lucide-react";
 import { api } from "@/services/api";
 import { useForm } from "react-hook-form";
 import { AxiosError } from "axios";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
 
 interface FormData {
   email: string;
@@ -54,84 +57,107 @@ export function RegisterPage() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col gap-3 items-center justify-center h-full w-full "
+      className="flex flex-col gap-2 items-center justify-center h-full w-full "
     >
-      <h1 className="text-4xl font-bold text-primary">Cadastre-se</h1>
-      <div className="flex flex-col h-[68px]">
-        <input
-          type="text"
-          id="name"
-          placeholder="Digite seu nome"
-          className="w-96 rounded-xl p-3  outline-none text-black"
-          {...register("name", { required: "Nome é obrigatório" })}
-        />
-        {errors.name && (
-          <p className="text-red-600 text-sm pl-3 py-1">
-            {errors.name.message}
-          </p>
-        )}
-      </div>
-      <div className="flex flex-col h-[68px]">
-        <input
-          type="text"
-          id="email"
-          placeholder="Digite seu email"
-          className="w-96 rounded-xl p-3 outline-none text-black"
-          {...register("email", {
-            required: "Email é obrigatório",
-            pattern: {
-              value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-              message: "Email inválido",
-            },
-          })}
-        />
-        {errors.email && (
-          <p className="text-red-600 text-sm pl-3 py-1">
-            {errors.email.message}
-          </p>
-        )}
-      </div>
-      <div className="flex flex-col h-[68px]">
-        <div className="flex relative w-96 rounded-xl text-black">
-          <input
-            type={showPassword ? "text" : "password"}
-            id="password"
-            placeholder="Digite sua senha"
-            className="flex w-full rounded-xl p-3 outline-none"
-            {...register("password", {
-              required: "Senha é obrigatória",
-              minLength: {
-                value: 4,
-                message: "Senha deve ter ao menos 4 caracteres",
-              },
-            })}
-          />
-          <span
-            className="absolute right-3 top-3 cursor-pointer"
-            onClick={handleShowPassword}
-          >
-            {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-          </span>
+      <h1 className="text-4xl font-bold">Crie uma conta</h1>
+      <p className="text-muted-foreground">
+        Insira suas informações para criar uma conta
+      </p>
+      <div className="flex flex-col gap-5 mb-10">
+        <div className="flex flex-col h-[68px] gap-3">
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="name" className="text-base">
+              Name
+            </Label>
+
+            <Input
+              type="text"
+              id="name"
+              placeholder="Digite seu nome"
+              className="w-96 rounded-xl p-3 bg-white border-gray-300"
+              {...register("name", { required: "Nome é obrigatório" })}
+            />
+          </div>
+          {errors.name && (
+            <p className="text-red-600 text-sm pl-3 py-1">
+              {errors.name.message}
+            </p>
+          )}
         </div>
-        {errors.password && (
-          <p className="text-red-600 text-sm pl-3 py-1">
-            {errors.password.message}
-          </p>
-        )}
-        {errorMessage && (
-          <p className="text-red-600 text-sm pl-3 py-1">{errorMessage}</p>
-        )}
+        <div className="flex flex-col h-[68px] gap-1">
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="email" className="text-base">
+              Email
+            </Label>
+
+            <Input
+              type="text"
+              id="email"
+              placeholder="Digite seu email"
+              className="w-96 rounded-xl p-3 bg-white border-gray-300"
+              {...register("email", {
+                required: "Email é obrigatório",
+                pattern: {
+                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                  message: "Email inválido",
+                },
+              })}
+            />
+          </div>
+          {errors.email && (
+            <p className="text-red-600 text-sm pl-1">{errors.email.message}</p>
+          )}
+        </div>
+        <div className="flex flex-col h-[68px]">
+          <div className="flex flex-col relative w-96 rounded-xl text-black  gap-3">
+            <Label htmlFor="password" className="text-base">
+              Password
+            </Label>
+
+            <Input
+              type={showPassword ? "text" : "password"}
+              id="password"
+              placeholder="Digite sua senha"
+              className="w-96 rounded-xl p-3 bg-white border-gray-300"
+              {...register("password", {
+                required: "Senha é obrigatória",
+                minLength: {
+                  value: 4,
+                  message: "Senha deve ter ao menos 4 caracteres",
+                },
+              })}
+            />
+            <span
+              className="absolute right-3 top-[2.8rem] cursor-pointer"
+              onClick={handleShowPassword}
+            >
+              {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+            </span>
+          </div>
+          {errors.password && (
+            <p className="text-red-600 text-sm pl-1 py-1">
+              {errors.password.message}
+            </p>
+          )}
+          {errorMessage && (
+            <p className="text-red-600 text-sm pl-1 py-1">{errorMessage}</p>
+          )}
+        </div>
       </div>
 
-      <button
+      <Button
         type="submit"
-        className="w-96 rounded-xl bg-black text-white p-3 hover:bg-neutral-950"
+        variant="secondary"
+        className="w-96 rounded-xl text-white p-3"
       >
         Cadastre-se
-      </button>
+      </Button>
       <div className="text-black">
         Já tem uma conta?{" "}
-        <Link to="/auth/login" className="text-primary cursor-pointer">
+        <Link
+          to="/auth/login"
+          className=" text-gray-800 underline underline-offset-4 hover:text-gray-900"
+        >
           Logar-se
         </Link>
       </div>
