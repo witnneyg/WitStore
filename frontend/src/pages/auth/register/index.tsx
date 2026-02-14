@@ -31,7 +31,10 @@ export function RegisterPage() {
 
   async function onSubmit(formData: FormData) {
     try {
+      console.log({ formData });
       const response = await api.post("/auth/register", formData);
+
+      console.log({ response });
       if (response.status === 201) {
         const token = response.data.token;
 

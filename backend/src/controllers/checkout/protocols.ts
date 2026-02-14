@@ -15,6 +15,6 @@ export interface Products {
 export interface IStripeCheckoutRepository {
   createCheckoutSession(
     products: Products[],
-    orderId: string
+    orderId: string,
   ): Promise<Stripe.Checkout.Session>;
 }

@@ -2,6 +2,8 @@ import Stripe from "stripe";
 import { IPaymentSuccessRepository } from "../../controllers/payment-success/protocols.js";
 import { Order } from "../../models/orderSchema.js";
 
+console.log(process.env.STRIPE_SECRET_KEY);
+console.log(process.env.STRIPE_WEBHOOK_SECRET_KEY);
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
   apiVersion: "2025-02-24.acacia",
 });
@@ -9,12 +11,12 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
 export class PaymentSuccessRepository implements IPaymentSuccessRepository {
   async handlePaymentSuccess(
     signature: string,
-    body: any
+    body: any,
   ): Promise<Stripe.LineItem[] | null> {
     const event = stripe.webhooks.constructEvent(
       body,
       signature,
-      process.env.STRIPE_WEBHOOK_SECRET_KEY as string
+      process.env.STRIPE_WEBHOOK_SECRET_KEY as string,
     );
     if (event.type === "checkout.session.completed") {
       const session = event.data.object;
@@ -23,7 +25,7 @@ export class PaymentSuccessRepository implements IPaymentSuccessRepository {
         event.data.object.id,
         {
           expand: ["line_items"],
-        }
+        },
       );
 
       if (!sessionWithLineItems.line_items) {
@@ -43,7 +45,7 @@ export class PaymentSuccessRepository implements IPaymentSuccessRepository {
         },
         {
           new: true,
-        }
+        },
       );
 
       return lineItems;

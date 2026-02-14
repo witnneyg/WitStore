@@ -1,4 +1,5 @@
 import mongoose, { Connection } from "mongoose";
+import { seed } from "../models/seed.js";
 
 class Database {
   private static instance: Database;
@@ -17,6 +18,7 @@ class Database {
     if (!this.connection) {
       try {
         await mongoose.connect(process.env.MONGODB_URL!);
+        // await seed();
         this.connection = mongoose.connection;
         console.log("Conectado ao MongoDB");
       } catch (error) {
@@ -29,7 +31,7 @@ class Database {
   public getConnection(): Connection {
     if (!this.connection) {
       throw new Error(
-        "Banco de dados não conectado. Chame `connect()` primeiro."
+        "Banco de dados não conectado. Chame `connect()` primeiro.",
       );
     }
     return this.connection;

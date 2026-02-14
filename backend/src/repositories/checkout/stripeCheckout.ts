@@ -7,7 +7,7 @@ import {
 export class StripeCheckoutRepository implements IStripeCheckoutRepository {
   async createCheckoutSession(
     products: Products[],
-    orderId: string
+    orderId: string,
   ): Promise<Stripe.Checkout.Session> {
     const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
       apiVersion: "2025-02-24.acacia",

@@ -16,7 +16,7 @@ const main = async () => {
     await MongoClient.connect();
   } catch (error) {
     console.error(
-      "Erro ao conectar ao banco de dados. Encerrando aplicação..."
+      "Erro ao conectar ao banco de dados. Encerrando aplicação...",
     );
     process.exit(1);
   }

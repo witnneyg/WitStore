@@ -6,7 +6,6 @@ const router = Router();
 
 router.post("/register", async (req, res) => {
   const createUserRepository = new CreateUserRepository();
-
   const createUserController = new CreateUserController(createUserRepository);
 
   const { body, statusCode } = await createUserController.handle({

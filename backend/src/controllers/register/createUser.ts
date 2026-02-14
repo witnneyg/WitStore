@@ -6,11 +6,7 @@ import { IUser } from "../../models/userSchema.js";
 export class CreateUserController implements IController {
   constructor(private readonly createUserRepository: ICreateUserRepository) {}
 
-  async handle(
-    HttpRequest: HttpRequest<ICreateUser>
-  ): Promise<
-    HttpResponse<{ user: Omit<IUser, "password">; token: string } | string>
-  > {
+  async handle(HttpRequest: HttpRequest<ICreateUser>) {
     try {
       const body = HttpRequest.body;
 
@@ -24,10 +20,19 @@ export class CreateUserController implements IController {
         statusCode: 201,
         body: { user: userWithoutPassword, token },
       };
-    } catch (error) {
+    } catch (error: any) {
+      if (error.message === "Email already exists") {
+        return {
+          statusCode: 409,
+          body: error.message,
+        };
+      }
+
+      console.error(error);
+
       return {
         statusCode: 500,
-        body: "Something went wrong",
+        body: "Internal server error",
       };
     }
   }

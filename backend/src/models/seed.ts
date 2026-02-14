@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
-import { Category, Product } from "./models.js";
+import { Category } from "./categorySchema.js";
+import { Product } from "./productSchema.js";
 
 export async function seed() {
   try {
@@ -596,14 +597,14 @@ export async function seed() {
 
     const savedKeyBoards = await Product.insertMany(keyboards);
     keyboardsCategory.products = savedKeyBoards.map(
-      (keyboards) => keyboards._id
+      (keyboards) => keyboards._id,
     );
     await keyboardsCategory.save();
 
     // Inserir e associar produtos às categorias
     const savedHeadphones = await Product.insertMany(headphones);
     headphonesCategory.products = savedHeadphones.map(
-      (headphone) => headphone._id
+      (headphone) => headphone._id,
     );
     await headphonesCategory.save();
 
@@ -618,9 +619,13 @@ export async function seed() {
     const savedSpeakers = await Product.insertMany(speakers);
     speakersCategory.products = savedSpeakers.map((speaker) => speaker._id);
     await speakersCategory.save();
+
+    console.log(savedSpeakers);
   } catch (error) {
     console.error(error);
   } finally {
     await mongoose.connection.close();
   }
 }
+
+await seed();
