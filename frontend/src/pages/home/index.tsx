@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 import bannerDesconto from "../../assets/banner-desconto.png";
 import bannerMouse from "../../assets/banner-mouses.png";
 import bannerFones from "../../assets/banner-fones.png";
-import bannerOfertas from "../../assets/banner-ofertas.png";
 import fretegratis from "../../assets/banner-fretegrátis.png";
 
 import { SectionTitle } from "../../components/ui/section-title";
